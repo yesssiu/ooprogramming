@@ -1,3 +1,6 @@
+# File:         task.py
+# Author:       Lauri Kodisoja
+# Description:  task class
 
 """Class definition for a task"""
 

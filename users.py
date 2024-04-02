@@ -1,3 +1,7 @@
+# File:         users.py
+# Author:       Lauri Kodisoja
+# Description:  class definition for different users
+
 from task import Task
 
 """Class definition for a user"""
