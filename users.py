@@ -21,6 +21,10 @@ class User:
     def get_password(self):
         return self.__password
 
+    @property
+    def is_manager(self):
+        return self.__is_manager
+
     def view_tasks(self):
         for task in self.__tasks:
             return task
