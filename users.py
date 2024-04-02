@@ -18,8 +18,8 @@ class User:
     def get_name(self):
         return self.__name
 
-    def get_id(self):
-        return self.__id
+    def get_password(self):
+        return self.__password
 
     def view_tasks(self):
         for task in self.__tasks:
