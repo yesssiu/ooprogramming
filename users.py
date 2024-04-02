@@ -26,8 +26,10 @@ class TaskManager(User):
     def __init__(self, name: str, id: int, is_manager: bool, password: str):
         super().__init__(name, id, is_manager, password)
 
-    def modify_tasks(self):
-        
+    def modify_task(self, task_id):
+        for task in self.__tasks:
+            if task.task_id == task_id:
+                task.modify_task()
 
     def new_task(self, task: Task):
         self.__tasks.append(task)
