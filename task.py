@@ -6,6 +6,8 @@
 
 
 class Task:
+    # class variable, gives task_id automatically and is +1
+    # for each task that is created
     task_variable_id = 1
 
     def __init__(self, task_name: str, assigned_to: object, description: str, status: str):

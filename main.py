@@ -6,12 +6,15 @@ from users import User, Admin
 from task import Task
 from task_manager_app import TaskManagerApp
 
-
-admin = Admin("Admin", 1, True, "asd")
-user = User("User", 2, False, )
-
-users_list = [admin, user]
+"""Definition for the main program"""
 
 
 def main():
-    TaskManagerApp(users_list)
+    user = User("asd", False, "asd")
+    admin = Admin("qwe", True, "qwe")
+    users = [user, admin]
+
+    task1 = Task("a", user, "first task", "underway")
+
+    app = TaskManagerApp(users)
+    app.run()

@@ -8,6 +8,9 @@ from task import Task
 
 
 class User:
+    # class variable, gives user_id automatically and is +1
+    # for each user that is created
+    # same variable is used in Admin class
     user_variable_id = 1
 
     def __init__(self, name: str, is_manager: bool, password: str):

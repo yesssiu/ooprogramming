@@ -16,12 +16,14 @@ class TaskManagerApp:
         self._logged_in = False
         self._user = None
 
+    # menu for regular users
     def user_menu(self):
         print("Commands:")
         print("0 Exit")
         print("1 Log out")
         print("2 View tasks")
 
+    # menu for admin users
     def admin_menu(self):
         print("Commands:")
         print("0 Exit")
@@ -31,12 +33,13 @@ class TaskManagerApp:
     def login(self):
         username = input("Enter your username (\"exit\" to exit): ")
 
+        # makes it possible to close the program from the login
         if username == "exit":
             print("Closing the program")
             return 'exit'
 
+        # if username foundit's stored in possible_user which is used to check the password
         possible_user = None
-
         for user in self._users_list:
             if username == user.get_name():
                 possible_user = user
@@ -49,6 +52,7 @@ class TaskManagerApp:
 
         password = input("Enter your password: ")
 
+        # comparing password to the possible_user's password
         if password == possible_user.get_password():
             self._logged_in = True
             self._user = possible_user
@@ -67,15 +71,18 @@ class TaskManagerApp:
 
     def run(self):
         while True:
+            # exit is used to close the program
             exit = False
             if self.login() == 'exit':
                 break
 
+            # checks if there is user or an admin and shows according options
             if self._user.is_manager == False:
                 self.user_menu()
             elif self._user.is_manager == True:
                 self.admin_menu()
 
+            # program for users
             while self._logged_in == True and self._user.is_manager == False:
                 command = input("Command: ")
 
@@ -96,6 +103,7 @@ class TaskManagerApp:
                     print("Invalid input\n")
                     self.user_menu()
 
+            # program for admins
             while self._logged_in == True and self._user.is_manager == True:
                 command = input("Command: ")
 
@@ -118,8 +126,8 @@ class TaskManagerApp:
 # testing
 
 
-user = User("asd", 1, False, "asd")
-admin = Admin("qwe", 2, True, "qwe")
+user = User("asd", False, "asd")
+admin = Admin("qwe", True, "qwe")
 users = [user, admin]
 
 task1 = Task("a", user, "first task", "underway")
