@@ -28,8 +28,12 @@ class TaskManagerApp:
         print("2 View tasks")
 
     def login(self):
-        username = input("Please enter your username: ")
-        # password = input("Please enter your password: ")
+        username = input("Enter your username (\"exit\" to exit): ")
+
+        if username == "exit":
+            print("Closing the program")
+            return 'exit'
+
         possible_user = None
 
         for user in self._users_list:
@@ -42,7 +46,7 @@ class TaskManagerApp:
             self.login()
             return
 
-        password = input("Please enter your password: ")
+        password = input("Enter your password: ")
 
         if password == possible_user.get_password():
             self._logged_in = True
@@ -54,47 +58,56 @@ class TaskManagerApp:
             self.login()
 
     def log_out(self):
-        print("Logging out")
+        print("Logging out\n")
         self._logged_in = False
 
     # def view_tasks(self):
 
     def run(self):
-        self.login()
-        if self._user.is_manager == False:
-            self.user_menu()
-        elif self._user.is_manager == True:
-            self.admin_menu()
-
-        while self._logged_in == True and self._user.is_manager == False:
-            command = input("Command: ")
-
-            if command == "0":
-                print("Closing the program")
-                self._logged_in = False
+        while True:
+            exit = False
+            if self.login() == 'exit':
                 break
 
-            elif command == "1":
-                self.log_out()
-
-            else:
-                print("Invalid input\n")
+            if self._user.is_manager == False:
                 self.user_menu()
+            elif self._user.is_manager == True:
+                self.admin_menu()
 
-        while self._logged_in == True and self._user.is_manager == True:
-            command = input("Command: ")
+            while self._logged_in == True and self._user.is_manager == False:
+                command = input("Command: ")
 
-            if command == "0":
-                print("Closing the program")
-                self._logged_in = False
+                if command == "0":
+                    print("Closing the program")
+                    self._logged_in = False
+                    exit = True
+                    break
+
+                elif command == "1":
+                    self.log_out()
+
+                else:
+                    print("Invalid input\n")
+                    self.user_menu()
+
+            while self._logged_in == True and self._user.is_manager == True:
+                command = input("Command: ")
+
+                if command == "0":
+                    print("Closing the program")
+                    self._logged_in = False
+                    exit = True
+                    break
+
+                elif command == "1":
+                    self.log_out()
+
+                else:
+                    print("Invalid input\n")
+                    self.admin_menu()
+
+            if exit:
                 break
-
-            elif command == "1":
-                self.log_out
-
-            else:
-                print("Invalid input\n")
-                self.user_menu()
 
 # testing
 
