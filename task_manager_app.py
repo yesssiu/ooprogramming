@@ -14,30 +14,57 @@ class TaskManagerApp:
         self._users_list = users_list
         self._logged_in = False
 
+    def menu(self):
+        print("Commands:")
+        print("0 Exit")
+        print("1 To something")
+
     def login(self):
         username = input("Please enter your username: ")
-        password = input("Please enter your password: ")
+        # password = input("Please enter your password: ")
+        possible_user = None
 
         for user in self._users_list:
-            possible_user = []
             if username == user.get_name():
-                possible_user.append(user)
-                if password == possible_user[0].get_password():
-                    self._logged_in = True
-                    print("Logged in")
-                    return
-                else:
-                    print("Wrong password")
-                    return
-            else:
-                print("User not found")
+                possible_user = user
+                break
 
+        if possible_user is None:
+            print("User not found\n")
+            self.login()
+            return
+
+        password = input("Please enter your password: ")
+
+        if password == possible_user.get_password():
+            self._logged_in = True
+            print("Logged in\n")
+
+        else:
+            print("Wrong password\n")
+            self.login()
+
+    def run(self):
+        self.login()
+        self.menu()
+        while self._logged_in == True:
+            command = input("Command: ")
+
+            if command == "0":
+                print("Closing the program")
+                self._logged_in = False
+                break
+
+            else:
+                print("Invalid input\n")
+                self.menu()
 
 # testing
+
 
 user = User("asd", 1, False, "asd")
 admin = Admin("qwe", 2, True, "qwe")
 users = [user, admin]
 
 app = TaskManagerApp(users)
-app.login()
+app.run()
