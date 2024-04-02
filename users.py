@@ -21,6 +21,10 @@ class User:
     def get_id(self):
         return self.__id
 
+    @property
+    def is_manager(self):
+        return self.__is_manager
+
     def view_tasks(self):
         for task in self.__tasks:
             return task
