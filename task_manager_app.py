@@ -10,4 +10,4 @@ from users import User, TaskManager
 class TaskManagerApp:
 
     def __init__(self):
-        self.
+        pass
