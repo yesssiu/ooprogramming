@@ -14,7 +14,12 @@ class TaskManagerApp:
         self._users_list = users_list
         self._logged_in = False
 
-    def menu(self):
+    def user_menu(self):
+        print("Commands:")
+        print("0 Exit")
+        print("1 To something")
+
+    def admin_menu(self):
         print("Commands:")
         print("0 Exit")
         print("1 To something")
@@ -46,8 +51,12 @@ class TaskManagerApp:
 
     def run(self):
         self.login()
-        self.menu()
-        while self._logged_in == True:
+        if user.is_manager == False:
+            self.user_menu()
+        elif user.is_manager == True:
+            self.admin_menu()
+
+        while self._logged_in == True and user.is_manager == False:
             command = input("Command: ")
 
             if command == "0":
@@ -57,7 +66,19 @@ class TaskManagerApp:
 
             else:
                 print("Invalid input\n")
-                self.menu()
+                self.user_menu()
+
+        while self._logged_in == True and user.is_manager == True:
+            command = input("Command: ")
+
+            if command == "0":
+                print("Closing the program")
+                self._logged_in = False
+                break
+
+            else:
+                print("Invalid input\n")
+                self.user_menu()
 
 # testing
 
