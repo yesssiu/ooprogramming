@@ -7,10 +7,10 @@ from task import Task
 from task_manager_app import TaskManagerApp
 
 
-user1 = User["User1", "1", "true", "salasana1"]
-user2 = User["User2", "2", "false", "salasana2"]
+admin = Admin("Admin", 1, True, "asd")
+user = User("User", 2, False, )
 
-users_list = [user1, user2]
+users_list = [admin, user]
 
 
 def main():
