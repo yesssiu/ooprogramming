@@ -2,7 +2,7 @@
 # Author:       Jessica Laamanen
 # Description:  main
 
-from users import User
+from users import User, Admin
 from task import Task
 from task_manager_app import TaskManagerApp
 

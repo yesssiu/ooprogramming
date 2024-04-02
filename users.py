@@ -36,7 +36,7 @@ class User:
 """Class definition for a task manager"""
 
 
-class TaskManager(User):
+class Admin(User):
     def __init__(self, name: str, id: int, is_manager: bool, password: str):
         super().__init__(name, id, is_manager, password)
 
