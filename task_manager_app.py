@@ -13,16 +13,19 @@ class TaskManagerApp:
     def __init__(self, users_list: list):
         self._users_list = users_list
         self._logged_in = False
+        self._user = None
 
     def user_menu(self):
         print("Commands:")
         print("0 Exit")
-        print("1 To something")
+        print("1 Log out")
+        print("2 View tasks")
 
     def admin_menu(self):
         print("Commands:")
         print("0 Exit")
-        print("1 To something")
+        print("1 Log out")
+        print("2 View tasks")
 
     def login(self):
         username = input("Please enter your username: ")
@@ -43,38 +46,51 @@ class TaskManagerApp:
 
         if password == possible_user.get_password():
             self._logged_in = True
+            self._user = possible_user
             print("Logged in\n")
 
         else:
             print("Wrong password\n")
             self.login()
 
+    def log_out(self):
+        print("Logging out")
+        self._logged_in = False
+
+    # def view_tasks(self):
+
     def run(self):
         self.login()
-        if user.is_manager == False:
+        if self._user.is_manager == False:
             self.user_menu()
-        elif user.is_manager == True:
+        elif self._user.is_manager == True:
             self.admin_menu()
 
-        while self._logged_in == True and user.is_manager == False:
+        while self._logged_in == True and self._user.is_manager == False:
             command = input("Command: ")
 
             if command == "0":
                 print("Closing the program")
                 self._logged_in = False
                 break
+
+            elif command == "1":
+                self.log_out()
 
             else:
                 print("Invalid input\n")
                 self.user_menu()
 
-        while self._logged_in == True and user.is_manager == True:
+        while self._logged_in == True and self._user.is_manager == True:
             command = input("Command: ")
 
             if command == "0":
                 print("Closing the program")
                 self._logged_in = False
                 break
+
+            elif command == "1":
+                self.log_out
 
             else:
                 print("Invalid input\n")
