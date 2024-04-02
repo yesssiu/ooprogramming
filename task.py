@@ -6,9 +6,12 @@
 
 
 class Task:
-    def __init__(self, task_name: str, task_id: int, assigned_to: object, description: str, status: str):
+    task_variable_id = 1
+
+    def __init__(self, task_name: str, assigned_to: object, description: str, status: str):
+        self.__task_id = Task.task_variable_id
+        Task.task_variable_id += 1
         self.task_name = task_name
-        self.__task_id = task_id
         self.__assigned_to = assigned_to
         self.description = description
         self.__status = status

@@ -2,6 +2,7 @@
 # Author:       Lauri Kodisoja
 # Description:  task manager application
 
+from task import Task
 from users import User, Admin
 
 
@@ -61,7 +62,8 @@ class TaskManagerApp:
         print("Logging out\n")
         self._logged_in = False
 
-    # def view_tasks(self):
+    def view_tasks(self):
+        print(self._user.view_tasks())
 
     def run(self):
         while True:
@@ -85,6 +87,10 @@ class TaskManagerApp:
 
                 elif command == "1":
                     self.log_out()
+
+                elif command == "2":
+                    self.view_tasks()
+                    print()
 
                 else:
                     print("Invalid input\n")
@@ -115,6 +121,8 @@ class TaskManagerApp:
 user = User("asd", 1, False, "asd")
 admin = Admin("qwe", 2, True, "qwe")
 users = [user, admin]
+
+task1 = Task("a", user, "first task", "underway")
 
 app = TaskManagerApp(users)
 app.run()

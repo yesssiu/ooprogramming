@@ -8,7 +8,11 @@ from task import Task
 
 
 class User:
-    def __init__(self, name: str, id: int, is_manager: bool, password: str):
+    user_variable_id = 1
+
+    def __init__(self, name: str, is_manager: bool, password: str):
+        self.__user_id = User.user_variable_id
+        User.user_variable_id += 1
         self.__name = name
         self.__id = id
         self.__is_manager = is_manager
@@ -20,6 +24,10 @@ class User:
 
     def get_password(self):
         return self.__password
+
+    @property
+    def user_id(self):
+        return self.__user_id
 
     @property
     def is_manager(self):
@@ -37,8 +45,8 @@ class User:
 
 
 class Admin(User):
-    def __init__(self, name: str, id: int, is_manager: bool, password: str):
-        super().__init__(name, id, is_manager, password)
+    def __init__(self, name: str, is_manager: bool, password: str):
+        super().__init__(name, is_manager, password)
 
     def modify_task(self, task_id):
         for task in self.__tasks:
@@ -47,3 +55,12 @@ class Admin(User):
 
     def new_task(self, task: Task):
         self.__tasks.append(task)
+
+# testing
+
+
+# user = User("asd", False, "asd")
+# admin = Admin("qwe", True, "qwe")
+
+# print(user.user_id)
+# print(admin.user_id)
