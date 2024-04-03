@@ -17,7 +17,6 @@ class User:
         self.__user_id = User.user_variable_id
         User.user_variable_id += 1
         self.__name = name
-        self.__id = id
         self.__is_manager = False
         self.__password = password
         self.__tasks = []
@@ -45,7 +44,7 @@ class User:
             return task
 
     def __str__(self):
-        return f"User ID: {self.__id}, username: {self.__name}"
+        return f"User ID: {self.__user_id}, username: {self.__name}"
 
 
 """Class definition for a admin"""

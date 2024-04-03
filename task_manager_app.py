@@ -73,18 +73,34 @@ class TaskManagerApp:
     def view_tasks(self):
         print(self._user.view_tasks())
 
+    # to see all users
+    def view_users(self):
+        for user in self._users_list:
+            print(user)
+
     # for admin to see all tasks
     def view_all_tasks(self):
-        for task in self._tasks:
-            print(task)
+        if self._tasks == []:
+            print("No tasks\n")
+        else:
+            for task in self._tasks:
+                print(task)
 
     # for admin to add tasks
     def add_task(self):
         task_name = input("Name of task: ")
         description = input("Short description: ")
-
         task = Task(task_name, description)
+        choice = input("Assign task to user (y/n): ")
 
+        # possibility to assign a task to any user
+        if choice == "y":
+            print("Here is a list of users:")
+            self.view_users()
+            id = int(input("Select a user by their ID: "))
+            for user in self._users_list:
+                if user.user_id == id:
+                    task.assigned_to = user
         self._tasks.append(task)
 
     def run(self):

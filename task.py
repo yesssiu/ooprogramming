@@ -28,7 +28,7 @@ class Task:
 
     @assigned_to.setter
     def assigned_to(self, user):
-        self.assigned_to = user
+        self.__assigned_to = user
 
     @property
     def status(self):
