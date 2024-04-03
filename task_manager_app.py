@@ -22,16 +22,18 @@ class TaskManagerApp:
         print("Commands:")
         print("0 Exit")
         print("1 Log out")
-        print("2 View tasks")
+        print("2 Own tasks")
+        print("3 All tasks")
+        print("4 New tasks")
 
     # menu for admin users
     def admin_menu(self):
         print("Commands:")
         print("0 Exit")
         print("1 Log out")
-        print("2 View own tasks")
-        print("3 View all tasks")
-        print("4 Add task")
+        print("2 Own tasks")
+        print("3 All tasks")
+        print("4 New task")
 
     def login(self):
         username = input("Enter your username (\"exit\" to exit): ")
@@ -73,18 +75,27 @@ class TaskManagerApp:
     def view_tasks(self):
         print(self._user.view_tasks())
 
-    # to see all users
-    def view_users(self):
-        for user in self._users_list:
-            print(user)
-
-    # for admin to see all tasks
+    # to see all tasks
     def view_all_tasks(self):
         if self._tasks == []:
             print("No tasks\n")
         else:
             for task in self._tasks:
                 print(task)
+
+    # to see all users
+    def view_users(self):
+        for user in self._users_list:
+            print(user)
+
+    # for user to add a task for themselves
+    def add_task_user(self):
+        task_name = input("Name of task: ")
+        description = input("Short description: ")
+        task = Task(task_name, description)
+        task.assigned_to = self._user
+        self._user.tasks = task
+        self._tasks.append(task)
 
     # for admin to add tasks
     def add_task(self):
@@ -132,6 +143,12 @@ class TaskManagerApp:
                 elif command == "2":
                     self.view_tasks()
                     print()
+
+                elif command == "3":
+                    self.view_all_tasks()
+
+                elif command == "4":
+                    self.add_task_user()
 
                 else:
                     print("Invalid input\n")

@@ -39,6 +39,14 @@ class User:
     def is_manager(self, value):
         self.__is_manager = value
 
+    @property
+    def tasks(self):
+        return self.__tasks
+
+    @tasks.setter
+    def tasks(self, new_task):
+        return self.tasks.append(new_task)
+
     def view_tasks(self):
         for task in self.__tasks:
             return task
