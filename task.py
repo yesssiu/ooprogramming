@@ -10,13 +10,13 @@ class Task:
     # for each task that is created
     task_variable_id = 1
 
-    def __init__(self, task_name: str, assigned_to: object, description: str, status: str):
+    def __init__(self, task_name: str, description: str):
         self.__task_id = Task.task_variable_id
         Task.task_variable_id += 1
         self.task_name = task_name
-        self.__assigned_to = assigned_to
+        self.__assigned_to = None
         self.description = description
-        self.__status = status
+        self.__status = "unfinished"
 
     @property
     def task_id(self):
@@ -26,11 +26,16 @@ class Task:
     def assigned_to(self):
         return self.__assigned_to
 
+    @assigned_to.setter
+    def assigned_to(self, user):
+        self.assigned_to = user
+
     @property
     def status(self):
         return self.__status
 
-    def modify_task(self, new_status: str):
+    @status.setter
+    def status(self, new_status: str):
         self.status = new_status
 
     def __str__(self):

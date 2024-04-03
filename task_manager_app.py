@@ -32,6 +32,13 @@ class TaskManagerApp:
         print("2 View own tasks")
         print("3 View all tasks")
 
+    # for admin to add tasks
+    def add_task(self):
+        task_name = input("Name of task: ")
+        description = input("Short description: ")
+
+        task = Task(task_name, description)
+
     def login(self):
         username = input("Enter your username (\"exit\" to exit): ")
 
