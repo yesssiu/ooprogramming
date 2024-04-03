@@ -31,12 +31,12 @@ class TaskManagerApp:
         print("2 View tasks")
 
     def login(self):
-        username = input("Enter your username (\"exit\" to exit): ")
+        username = input('Enter your username ("exit" to exit): ')
 
         # makes it possible to close the program from the login
-        if username == "exit":
+        if username.lower() == "exit":
             print("Closing the program")
-            return 'exit'
+            return "exit"
 
         # if username foundit's stored in possible_user which is used to check the password
         possible_user = None
@@ -48,19 +48,17 @@ class TaskManagerApp:
         if possible_user is None:
             print("User not found\n")
             self.login()
-            return
-
-        password = input("Enter your password: ")
-
-        # comparing password to the possible_user's password
-        if password == possible_user.get_password():
-            self._logged_in = True
-            self._user = possible_user
-            print("Logged in\n")
-
         else:
-            print("Wrong password\n")
-            self.login()
+            password = input("Enter your password: ")
+            # comparing password to the possible_user's password
+            if password == possible_user.get_password():
+                self._logged_in = True
+                self._user = possible_user
+                print("Logged in\n")
+                return  # end the loop if the login is succesful
+
+            else:
+                print("Wrong password\n")
 
     def log_out(self):
         print("Logging out\n")
@@ -73,7 +71,7 @@ class TaskManagerApp:
         while True:
             # exit is used to close the program
             exit = False
-            if self.login() == 'exit':
+            if self.login() == "exit":
                 break
 
             # checks if there is user or an admin and shows according options
@@ -122,6 +120,7 @@ class TaskManagerApp:
 
             if exit:
                 break
+
 
 # testing
 
