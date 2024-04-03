@@ -31,13 +31,7 @@ class TaskManagerApp:
         print("1 Log out")
         print("2 View own tasks")
         print("3 View all tasks")
-
-    # for admin to add tasks
-    def add_task(self):
-        task_name = input("Name of task: ")
-        description = input("Short description: ")
-
-        task = Task(task_name, description)
+        print("4 Add task")
 
     def login(self):
         username = input("Enter your username (\"exit\" to exit): ")
@@ -85,8 +79,13 @@ class TaskManagerApp:
             print(task)
 
     # for admin to add tasks
-    # def add_task(self):
-        # task =
+    def add_task(self):
+        task_name = input("Name of task: ")
+        description = input("Short description: ")
+
+        task = Task(task_name, description)
+
+        self._tasks.append(task)
 
     def run(self):
         while True:
@@ -142,6 +141,9 @@ class TaskManagerApp:
                 elif command == "3":
                     self.view_all_tasks()
 
+                elif command == "4":
+                    self.add_task()
+
                 else:
                     print("Invalid input\n")
                     self.admin_menu()
@@ -155,8 +157,6 @@ class TaskManagerApp:
 user = User("asd", "asd")
 admin = Admin("qwe", "qwe")
 users = [user, admin]
-
-task1 = Task("a", user, "first task", "underway")
 
 app = TaskManagerApp(users)
 
