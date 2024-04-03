@@ -25,6 +25,7 @@ class TaskManagerApp:
         print("2 Own tasks")
         print("3 All tasks")
         print("4 New task")
+        print()
 
     # menu for admin users
     def admin_menu(self):
@@ -34,6 +35,8 @@ class TaskManagerApp:
         print("2 Own tasks")
         print("3 All tasks")
         print("4 New task")
+        print("5 Edit task status")
+        print()
 
     def login(self):
         username = input("Enter your username (\"exit\" to exit): ")
@@ -73,25 +76,27 @@ class TaskManagerApp:
 
     # for user to see their own tasks
     def view_tasks(self):
+        print()
         print(self._user.view_tasks())
 
     # to see all tasks
     def view_all_tasks(self):
         if self._tasks == []:
-            print("No tasks\n")
+            print("\nNo tasks\n")
         else:
-            print("All tasks")
+            print("\nAll tasks")
             for task in self._tasks:
                 print(task)
 
     # to see all users
     def view_users(self):
+        print()
         for user in self._users_list:
             print(user)
 
     # for user to add a task for themselves
     def add_task_user(self):
-        task_name = input("Name of task: ")
+        task_name = input("\nName of task: ")
         description = input("Short description: ")
         task = Task(task_name, description)
         task.assigned_to = self._user
@@ -100,16 +105,16 @@ class TaskManagerApp:
 
     # for admin to add tasks
     def add_task(self):
-        task_name = input("Name of task: ")
+        task_name = input("\nName of task: ")
         description = input("Short description: ")
         task = Task(task_name, description)
         choice = input("Assign task to user (y/n): ")
 
         # possibility to assign a task to any user
         if choice == "y":
-            print("Here is a list of users:")
+            print("\nList of all users:")
             self.view_users()
-            id = int(input("Select a user by their ID: "))
+            id = int(input("\nSelect a user by their ID: "))
             for user in self._users_list:
                 if user.user_id == id:
                     task.assigned_to = user
@@ -119,7 +124,7 @@ class TaskManagerApp:
     def edit_task_status(self):
         self.view_all_tasks()
         if self._tasks == []:
-            print("No tasks found")
+            print("\nNo tasks found")
 
         else:
             task_to_edit = input("\nInsert task ID to edit: ")
