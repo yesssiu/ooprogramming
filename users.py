@@ -13,12 +13,12 @@ class User:
     # same variable is used in Admin class
     user_variable_id = 1
 
-    def __init__(self, name: str, is_manager: bool, password: str):
+    def __init__(self, name: str, password: str):
         self.__user_id = User.user_variable_id
         User.user_variable_id += 1
         self.__name = name
         self.__id = id
-        self.__is_manager = is_manager
+        self.__is_manager = False
         self.__password = password
         self.__tasks = []
 
@@ -36,6 +36,10 @@ class User:
     def is_manager(self):
         return self.__is_manager
 
+    @is_manager.setter
+    def is_manager(self, value):
+        self.__is_manager = value
+
     def view_tasks(self):
         for task in self.__tasks:
             return task
@@ -44,12 +48,13 @@ class User:
         return f"User ID: {self.__id}, username: {self.__name}"
 
 
-"""Class definition for a task manager"""
+"""Class definition for a admin"""
 
 
 class Admin(User):
-    def __init__(self, name: str, is_manager: bool, password: str):
-        super().__init__(name, is_manager, password)
+    def __init__(self, name: str, password: str):
+        super().__init__(name, password)
+        self.is_manager = True
 
     def modify_task(self, task_id):
         for task in self.__tasks:
