@@ -24,7 +24,7 @@ class TaskManagerApp:
         print("1 Log out")
         print("2 Own tasks")
         print("3 All tasks")
-        print("4 New tasks")
+        print("4 New task")
 
     # menu for admin users
     def admin_menu(self):
@@ -43,7 +43,7 @@ class TaskManagerApp:
             print("Closing the program")
             return 'exit'
 
-        # if username foundit's stored in possible_user which is used to check the password
+        # if username found it's stored in possible_user which is used to check the password
         possible_user = None
         for user in self._users_list:
             if username == user.get_name():
@@ -80,6 +80,7 @@ class TaskManagerApp:
         if self._tasks == []:
             print("No tasks\n")
         else:
+            print("All tasks")
             for task in self._tasks:
                 print(task)
 
@@ -114,6 +115,21 @@ class TaskManagerApp:
                     task.assigned_to = user
         self._tasks.append(task)
 
+    # for admin to edit task status
+    def edit_task_status(self):
+        self.view_all_tasks()
+        if self._tasks == []:
+            print("No tasks found")
+
+        else:
+            task_to_edit = input("\nInsert task ID to edit: ")
+            for task in self._tasks:
+                if int(task_to_edit) == task.task_id:
+                    new_status = input("New status of the task: ")
+                    task.status = new_status
+                else:
+                    print("No task found with the given ID")
+
     def run(self):
         while True:
             # exit is used to close the program
@@ -146,9 +162,11 @@ class TaskManagerApp:
 
                 elif command == "3":
                     self.view_all_tasks()
+                    print()
 
                 elif command == "4":
                     self.add_task_user()
+                    print()
 
                 else:
                     print("Invalid input\n")
@@ -173,9 +191,15 @@ class TaskManagerApp:
 
                 elif command == "3":
                     self.view_all_tasks()
+                    print()
 
                 elif command == "4":
                     self.add_task()
+                    print()
+
+                elif command == "5":
+                    self.edit_task_status()
+                    print()
 
                 else:
                     print("Invalid input\n")

@@ -70,12 +70,3 @@ class Admin(User):
 
     def new_task(self, task: Task):
         self.__tasks.append(task)
-
-# testing
-
-
-# user = User("asd", False, "asd")
-# admin = Admin("qwe", True, "qwe")
-
-# print(user.user_id)
-# print(admin.user_id)

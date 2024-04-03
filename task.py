@@ -36,7 +36,7 @@ class Task:
 
     @status.setter
     def status(self, new_status: str):
-        self.status = new_status
+        self.__status = new_status
 
     def __str__(self):
         return f"ID: {self.__task_id}, name: {self.task_name}, assigned to: {self.__assigned_to}, description: {self.description}, status: {self.status}"
