@@ -97,7 +97,7 @@ class TaskManagerApp:
     # for user to see their own tasks
     def view_tasks(self):
         print()
-        print(self._user.view_tasks())
+        self._user.view_tasks()
 
     # to see all tasks
     def view_all_tasks(self):
@@ -110,7 +110,7 @@ class TaskManagerApp:
 
     # to see all users
     def view_users(self):
-        print()
+        print("\nAll users:")
         for user in self._users_list:
             print(user)
 
@@ -118,33 +118,50 @@ class TaskManagerApp:
     def add_task_user(self):
         task_name = input("\nName of task: ")
         description = input("Short description: ")
-        task = Task(task_name, description)
+        deadline = input("Task deadline: ")
+        task = Task(task_name, description, deadline)
         task.assigned_to = self._user
-        self._user.tasks = task
+        self._user.add_task(task)
         self._tasks.append(task)
 
     # for admin to add tasks
     def add_task(self):
         task_name = input("\nName of task: ")
         description = input("Short description: ")
-        task = Task(task_name, description)
+        deadline = input("Task deadline: ")
+        task = Task(task_name, description, deadline)
         choice = input("Assign task to user (y/n): ")
 
         # possibility to assign a task to any user
         if choice == "y":
             print("\nList of all users:")
             self.view_users()
+
             try:
                 id = int(input("\nSelect a user by their ID: "))
             except ValueError:
                 print("Invalid ID, task not assigned")
                 self._tasks.append(task)
                 return
+
+            user_found = False
             for user in self._users_list:
                 if user.user_id == id:
                     task.assigned_to = user
-                    print(f"Task assigned to {user.name}")
-        self._tasks.append(task)
+                    user.add_task(task)
+                    self._tasks.append(task)
+                    print(f"\nTask assigned to {user.name}")
+                    user_found = True
+            if not user_found:
+                print("\nUser not found, task not assigned")
+                self._tasks.append(task)
+        elif choice == "n":
+            print("\nTask not assigned")
+            self._tasks.append(task)
+
+        else:
+            print("\nInvalid input, task not assigned")
+            self._tasks.append(task)
 
     # for admin to edit task status
     def edit_task_status(self):
@@ -153,22 +170,29 @@ class TaskManagerApp:
             return
 
         else:
-            task_to_edit = input("\nInsert task ID to edit: ")
+            try:
+                task_to_edit = int(input("\nInsert task ID to edit: "))
+            except ValueError:
+                print("Invalid ID, returning")
+                return
+            task_found = False
             for task in self._tasks:
-                if int(task_to_edit) == task.task_id:
+                if task_to_edit == task.task_id:
                     new_status = input("New status of the task: ")
                     task.status = new_status
-                else:
-                    print("No task found with the given ID")
+                    task_found = True
+            if not task_found:
+                print("No task found with the given ID")
 
     def run(self):
         while True:
             # exit is used to close the program
             exit = False
             starting = True
+            self.start_menu()
 
             while starting:
-                self.start_menu()
+                # self.start_menu()
                 starting_command = input("Command: ")
 
                 if starting_command == "0":
@@ -192,10 +216,11 @@ class TaskManagerApp:
                     self.start_menu()
 
             # checks if there is user or an admin and shows according options
-            if self._user and self._user.is_manager == False:
-                self.user_menu()
-            elif self._user and self._user.is_manager == True:
-                self.admin_menu()
+            if self._logged_in:
+                if self._user.is_manager == False:
+                    self.user_menu()
+                elif self._user.is_manager == True:
+                    self.admin_menu()
 
             # program for users
             while self._logged_in == True and self._user.is_manager == False:
@@ -271,6 +296,4 @@ users = [user, admin]
 
 app = TaskManagerApp(users)
 
-# app.register()
-# app.view_users()
 app.run()

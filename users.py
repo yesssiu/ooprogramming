@@ -45,13 +45,12 @@ class User:
     def tasks(self):
         return self.__tasks
 
-    @tasks.setter
-    def tasks(self, new_task):
-        return self.tasks.append(new_task)
+    def add_task(self, new_task: Task):
+        self.__tasks.append(new_task)
 
     def view_tasks(self):
         for task in self.__tasks:
-            return task
+            print(task)
 
     def __str__(self):
         return f"{self.__name} (ID {self.__user_id})"
@@ -69,6 +68,3 @@ class Admin(User):
         for task in self.__tasks:
             if task.task_id == task_id:
                 task.modify_task()
-
-    def new_task(self, task: Task):
-        self.__tasks.append(task)
