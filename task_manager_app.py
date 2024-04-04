@@ -38,6 +38,21 @@ class TaskManagerApp:
         print("5 Edit task status")
         print()
 
+    def register(self):
+        username = input("Enter your username: ")
+        password_validation = False
+
+        while not password_validation:
+            password = input("Enter your password: ")
+            password_2 = input("Re-enter your password: ")
+            if password == password_2:
+                new_user = User(username, password)
+                self._users_list.append(new_user)
+                print("\nUser created succesfully")
+                password_validation = True
+            else:
+                print("\nPassword did not match, try again\n")
+
     def login(self):
         username = input("Enter your username (\"exit\" to exit): ")
 
@@ -51,12 +66,10 @@ class TaskManagerApp:
         for user in self._users_list:
             if username == user.name:
                 possible_user = user
-                break
 
         if possible_user is None:
             print("User not found\n")
-            self.login()
-            return
+            return self.login()
 
         password = input("Enter your password: ")
 
@@ -68,7 +81,7 @@ class TaskManagerApp:
 
         else:
             print("Wrong password\n")
-            self.login()
+            return self.login()
 
     def log_out(self):
         print("Logging out\n")
@@ -228,4 +241,6 @@ users = [user, admin]
 
 app = TaskManagerApp(users)
 
+# app.register()
+# app.view_users()
 app.run()
