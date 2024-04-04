@@ -17,6 +17,13 @@ class TaskManagerApp:
         self._logged_in = False
         self._user = None
 
+    def start_menu(self):
+        print("Task Manager App")
+        print("\nCommands:")
+        print("0 Exit")
+        print("1 Log in")
+        print("2 Register\n")
+
     # menu for regular users
     def user_menu(self):
         print("Commands:")
