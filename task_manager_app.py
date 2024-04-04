@@ -293,7 +293,6 @@ class TaskManagerApp:
 user = User("asd", "asd")
 admin = Admin("qwe", "qwe")
 users = [user, admin]
-
 app = TaskManagerApp(users)
 
 app.run()
