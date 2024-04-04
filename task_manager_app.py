@@ -165,13 +165,36 @@ class TaskManagerApp:
         while True:
             # exit is used to close the program
             exit = False
-            if self.login() == "exit":
-                break
+            starting = True
+
+            while starting:
+                self.start_menu()
+                starting_command = input("Command: ")
+
+                if starting_command == "0":
+                    print("Closing the program")
+                    starting = False
+                    exit = True
+
+                elif starting_command == "1":
+                    if self.login() == "exit":
+                        starting = False
+                        exit = True
+                    else:
+                        starting = False
+
+                elif starting_command == "2":
+                    self.register()
+                    starting = False
+
+                else:
+                    print("Invalid input\n")
+                    self.start_menu()
 
             # checks if there is user or an admin and shows according options
-            if self._user.is_manager == False:
+            if self._user and self._user.is_manager == False:
                 self.user_menu()
-            elif self._user.is_manager == True:
+            elif self._user and self._user.is_manager == True:
                 self.admin_menu()
 
             # program for users
