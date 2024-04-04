@@ -61,10 +61,10 @@ class TaskManagerApp:
                 print("\nPassword did not match, try again\n")
 
     def login(self):
-        username = input("Enter your username (\"exit\" to exit): ")
+        username = input('Enter your username ("exit" to exit): ')
 
         # makes it possible to close the program from the login
-        if username == "exit":
+        if username.lower() == "exit":
             print("Closing the program")
             return "exit"
 
@@ -286,6 +286,7 @@ class TaskManagerApp:
 
             if exit:
                 break
+
 
 # testing
 
