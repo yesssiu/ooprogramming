@@ -21,10 +21,12 @@ class User:
         self.__password = password
         self.__tasks = []
 
-    def get_name(self):
+    @property
+    def name(self):
         return self.__name
 
-    def get_password(self):
+    @property
+    def password(self):
         return self.__password
 
     @property
@@ -52,7 +54,7 @@ class User:
             return task
 
     def __str__(self):
-        return f"User ID: {self.__user_id}, username: {self.__name}"
+        return f"{self.__name} (ID {self.__user_id})"
 
 
 """Class definition for a admin"""

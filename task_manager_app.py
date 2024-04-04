@@ -44,12 +44,12 @@ class TaskManagerApp:
         # makes it possible to close the program from the login
         if username == "exit":
             print("Closing the program")
-            return 'exit'
+            return "exit"
 
         # if username found it's stored in possible_user which is used to check the password
         possible_user = None
         for user in self._users_list:
-            if username == user.get_name():
+            if username == user.name:
                 possible_user = user
                 break
 
@@ -61,7 +61,7 @@ class TaskManagerApp:
         password = input("Enter your password: ")
 
         # comparing password to the possible_user's password
-        if password == possible_user.get_password():
+        if password == possible_user.password:
             self._logged_in = True
             self._user = possible_user
             print("Logged in\n")
@@ -82,9 +82,9 @@ class TaskManagerApp:
     # to see all tasks
     def view_all_tasks(self):
         if self._tasks == []:
-            print("\nNo tasks\n")
+            print("\nNo tasks")
         else:
-            print("\nAll tasks")
+            print("\nAll tasks:")
             for task in self._tasks:
                 print(task)
 
@@ -114,17 +114,23 @@ class TaskManagerApp:
         if choice == "y":
             print("\nList of all users:")
             self.view_users()
-            id = int(input("\nSelect a user by their ID: "))
+            try:
+                id = int(input("\nSelect a user by their ID: "))
+            except ValueError:
+                print("Invalid ID, task not assigned")
+                self._tasks.append(task)
+                return
             for user in self._users_list:
                 if user.user_id == id:
                     task.assigned_to = user
+                    print(f"Task assigned to {user.name}")
         self._tasks.append(task)
 
     # for admin to edit task status
     def edit_task_status(self):
         self.view_all_tasks()
         if self._tasks == []:
-            print("\nNo tasks found")
+            return
 
         else:
             task_to_edit = input("\nInsert task ID to edit: ")
@@ -139,7 +145,7 @@ class TaskManagerApp:
         while True:
             # exit is used to close the program
             exit = False
-            if self.login() == 'exit':
+            if self.login() == "exit":
                 break
 
             # checks if there is user or an admin and shows according options
