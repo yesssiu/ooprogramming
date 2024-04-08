@@ -26,7 +26,7 @@ class TaskManagerApp:
 
     # menu for regular users
     def user_menu(self):
-        print("Commands:")
+        print("\nCommands:")
         print("0 Exit")
         print("1 Log out")
         print("2 Own tasks")
@@ -36,7 +36,7 @@ class TaskManagerApp:
 
     # menu for admin users
     def admin_menu(self):
-        print("Commands:")
+        print("\nCommands:")
         print("0 Exit")
         print("1 Log out")
         print("2 Own tasks")
@@ -61,7 +61,7 @@ class TaskManagerApp:
                 print("\nPassword did not match, try again\n")
 
     def login(self):
-        username = input("Enter your username (\"exit\" to exit): ")
+        username = input('Enter your username ("exit" to exit): ')
 
         # makes it possible to close the program from the login
         if username == "exit":
@@ -127,9 +127,10 @@ class TaskManagerApp:
     # for admin to add tasks
     def add_task(self):
         task_name = input("\nName of task: ")
+        category = input("\nTask category: ")
         description = input("Short description: ")
         deadline = input("Task deadline: ")
-        task = Task(task_name, description, deadline)
+        task = Task(task_name, category, description, deadline)
         choice = input("Assign task to user (y/n): ")
 
         # possibility to assign a task to any user
@@ -166,23 +167,59 @@ class TaskManagerApp:
     # for admin to edit task status
     def edit_task_status(self):
         self.view_all_tasks()
-        if self._tasks == []:
+        if not self._tasks:
             return
 
-        else:
+        while True:
             try:
-                task_to_edit = int(input("\nInsert task ID to edit: "))
+                task_to_edit_id = int(input("\nEnter the task ID to edit: "))
+                # checking task id
+                task_to_edit = next(
+                    (task for task in self._tasks if task.task_id == task_to_edit_id),
+                    None,
+                )
+                if task_to_edit:
+                    break  # exit loop if id is valid
+                else:
+                    print("No task found with the given ID.")
+                    retry = input(
+                        "Do you want to try again? (1: Yes, 2: Back to main menu): "
+                    )
+                    if retry == "2":
+                        return  # return to main menu
+                    elif retry != "1":
+                        print("Invalid option. Please try again.")
+                        continue
             except ValueError:
-                print("Invalid ID, returning")
-                return
-            task_found = False
-            for task in self._tasks:
-                if task_to_edit == task.task_id:
-                    new_status = input("New status of the task: ")
-                    task.status = new_status
-                    task_found = True
-            if not task_found:
-                print("No task found with the given ID")
+                print("Invalid ID, please enter a valid task ID.")
+                retry = input(
+                    "Do you want to try again? (1: Yes, 2: Back to main menu): "
+                )
+                if retry == "2":
+                    return  # return to the main menu
+                elif retry != "1":
+                    print("Invalid option. Please try again.")
+                    continue
+
+        while True:  # loop for checking the validity of the input task status
+            new_status = input(
+                "Enter the new status (Assigned/In progress/Done/Approved): "
+            ).lower()
+            if new_status in ["assigned", "in progress", "done", "approved"]:
+                task_to_edit.status = new_status
+                print("Task status updated successfully.")
+                break  # end loop if it's valid
+            else:
+                print(
+                    "Invalid status. Please choose from 'assigned', 'in progress', 'done', or 'approved'."
+                )
+                retry = input(
+                    "Do you want to try again? (1: Yes, 2: Back to main menu): "
+                )
+                if retry == "2":
+                    return  # Return to the main menu
+                elif retry != "1":
+                    print("Invalid option. Please try again.")
 
     def run(self):
         while True:
@@ -286,6 +323,7 @@ class TaskManagerApp:
 
             if exit:
                 break
+
 
 # testing
 
