@@ -18,7 +18,6 @@ class TaskManagerApp:
         self._user = None
 
     def start_menu(self):
-        print("Task Manager App")
         print("\nCommands:")
         print("0 Exit")
         print("1 Log in")
@@ -97,7 +96,10 @@ class TaskManagerApp:
     # for user to see their own tasks
     def view_tasks(self):
         print()
-        self._user.view_tasks()
+        if self._user.view_tasks() == None:
+            print("No tasks found")
+        else:
+            self._user.view_tasks()
 
     # to see all tasks
     def view_all_tasks(self):
@@ -226,6 +228,7 @@ class TaskManagerApp:
             # exit is used to close the program
             exit = False
             starting = True
+            print("Task Manager App")
             self.start_menu()
 
             while starting:
@@ -253,14 +256,15 @@ class TaskManagerApp:
                     self.start_menu()
 
             # checks if there is user or an admin and shows according options
-            if self._logged_in:
-                if self._user.is_manager == False:
-                    self.user_menu()
-                elif self._user.is_manager == True:
-                    self.admin_menu()
+            # if self._logged_in:
+                # if self._user.is_manager == False:
+                    # self.user_menu()
+                # elif self._user.is_manager == True:
+                    # self.admin_menu()
 
             # program for users
             while self._logged_in == True and self._user.is_manager == False:
+                self.user_menu()
                 command = input("Command: ")
 
                 if command == "0":
@@ -286,10 +290,11 @@ class TaskManagerApp:
 
                 else:
                     print("Invalid input\n")
-                    self.user_menu()
+                    continue
 
             # program for admins
             while self._logged_in == True and self._user.is_manager == True:
+                self.admin_menu()
                 command = input("Command: ")
 
                 if command == "0":
@@ -319,7 +324,7 @@ class TaskManagerApp:
 
                 else:
                     print("Invalid input\n")
-                    self.admin_menu()
+                    continue
 
             if exit:
                 break
