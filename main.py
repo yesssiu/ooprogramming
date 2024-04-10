@@ -4,8 +4,6 @@
 
 from task_manager_app import TaskManagerApp
 
-"""Definition for the main program"""
-
 
 def main():
     app = TaskManagerApp()
