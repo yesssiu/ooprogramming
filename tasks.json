@@ -2,19 +2,19 @@
     {
         "task_id": 1,
         "task_name": "asd",
-        "assigned_to": null,
+        "assigned_to": "asd (ID 2)",
         "category": "asd",
         "description": "asd",
-        "status": "in progress",
+        "status": "done",
         "deadline": "1.1.2025"
     },
     {
         "task_id": 2,
-        "task_name": "asd",
-        "assigned_to": "asd (ID 3)",
-        "category": "asd",
-        "description": "asd",
+        "task_name": "aaaaaaaaa",
+        "assigned_to": "AAA (ID 3)",
+        "category": "aaaaaaaaaa",
+        "description": "aaaaaaaaaaaaa",
         "status": "in progress",
-        "deadline": "1.1.2026"
+        "deadline": "1.1.2025"
     }
 ]

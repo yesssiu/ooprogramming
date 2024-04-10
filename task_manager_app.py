@@ -74,15 +74,26 @@ class TaskManagerApp:
                 users_data = json.load(file)
                 self.users_list = []
                 for user_data in users_data:
-                    user = User(name=user_data["name"], password=user_data["password"])
-                    user._User__user_id = user_data["user_id"]
+                    if user_data.get("is_manager", False):
+                        user = Admin(user_data["name"], user_data["password"])
+                    else:
+                        user = User(user_data["name"], user_data["password"])
+                    user.user_id = user_data["user_id"]
                     self._users_list.append(user)
             print("User data loaded successfully.")
         except FileNotFoundError:
             print("User data file not found")
 
     def save_users_to_json(self, filename):
-        users_data = [user.__dict__ for user in self._users_list]
+        users_data = []
+        for user in self._users_list:
+            user_data = {
+                "user_id": user.user_id,
+                "name": user.name,
+                "password": user.password,
+                "is_manager": isinstance(user, Admin),
+            }
+            users_data.append(user_data)
         try:
             with open(filename, "w") as file:
                 json.dump(users_data, file)
@@ -132,6 +143,7 @@ class TaskManagerApp:
             if self.validate_registration_pw(password):
                 password_2 = input("Re-enter your password: ")
                 if password == password_2:
+
                     new_user = User(username, password)
                     self._users_list.append(new_user)
                     print("\nUser created succesfully")

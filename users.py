@@ -11,7 +11,7 @@ class User:
     # class variable, gives user_id automatically and is +1
     # for each user that is created
     # same variable is used in Admin class
-    user_variable_id = 1
+    user_variable_id = 0
 
     @classmethod
     def new_id(cls):
