@@ -21,7 +21,7 @@ def login():
         password = entry_password.get()
         if username == "asd" and password == "asd":
             logged_in = tk.Toplevel()
-            logged_in.geometry("400x400")
+            logged_in.geometry("450x450")
             logged_in.title("Logged in to TM System")
             label_welcome = tk.Label(logged_in,text="You are now logged in to TM System")
             label_welcome.pack()
@@ -40,11 +40,11 @@ def login():
 
             #For adding tasks
             add_task_name = tk.Entry(logged_in)
-            add_task_name.pack()
+            add_task_name.pack(side="bottom",anchor="n")
             add_task_category = tk.Entry(logged_in)
-            add_task_category.pack()
+            add_task_category.pack(side="bottom",anchor="n")
             add_task_desc = tk.Entry(logged_in)
-            add_task_desc.pack()
+            add_task_desc.pack(side="bottom",anchor="n")
     #Login button with command to retrieve entry values
     btn_login2 = tk.Button(login_frame, text="Log in", command=check_info)
     btn_login2.pack()
