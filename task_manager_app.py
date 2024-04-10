@@ -5,6 +5,7 @@
 from task import Task
 from users import User, Admin
 from datetime import datetime
+import json
 
 
 """Class definition for the application"""
@@ -12,11 +13,31 @@ from datetime import datetime
 
 class TaskManagerApp:
 
-    def __init__(self, users_list: list):
+    def __init__(self, users_list=None):
+        if users_list is None:
+            users_list = []
         self._users_list = users_list
         self._tasks = []
         self._logged_in = False
         self._user = None
+
+        self.load_admin_user()  # loading initial admin user data from the json file
+
+    def load_admin_user(self):
+        try:
+            with open("users.json", "r") as file:
+                users_data = json.load(file)
+                for user_data in users_data:
+                    if user_data.get("is_manager", False):
+                        admin_user = Admin(
+                            name=user_data["name"], password=user_data["password"]
+                        )
+                        self._users_list.append(admin_user)
+                        print("Admin user loaded successfully.")
+                        return
+            print("Admin user not found.")
+        except FileNotFoundError:
+            print("User data file not found.")
 
     def start_menu(self):
         print("\nCommands:")
@@ -45,6 +66,48 @@ class TaskManagerApp:
         print("4 New task")
         print("5 Edit task status")
         print()
+
+    def read_users_from_json(self, filename):
+        try:
+            with open(filename, "r") as file:
+                users_data = json.load(file)
+                self.users_list = []
+                for user_data in users_data:
+                    user = User(name=user_data["name"], password=user_data["password"])
+                    user._User__user_id = user_data["user_id"]
+                    self._users_list.append(user)
+            print("User data loaded successfully.")
+        except FileNotFoundError:
+            print("User data file not found")
+
+    def save_users_to_json(self, filename):
+        users_data = [user.__dict__ for user in self._users_list]
+        try:
+            with open(filename, "w") as file:
+                json.dump(users_data, file)
+            print("Users saved successfully.")
+        except IOError as e:
+            print(f"Error saving user data to {filename}: {e}")
+
+    def read_tasks_from_json(self, filename):
+        try:
+            with open(filename, "r") as file:
+                tasks_data = json.load(file)
+                self.tasks_list = [Task(**task_data) for task_data in tasks_data]
+            print("Task data loaded successfully.")
+        except FileNotFoundError:
+            print("Task data file not found, creating a new empty file.")
+            self.tasks_list = []
+            self.save_tasks_to_json(filename)
+
+    def save_tasks_to_json(self, filename):
+        tasks_data = [task.__dict__ for task in self._tasks]
+        try:
+            with open(filename, "w") as file:
+                json.dump(tasks_data, file)
+            print("Tasks saved successfully.")
+        except IOError as e:
+            print(f"Error saving tasks to {filename}: {e}")
 
     def validate_registration_pw(self, password, min_length=3, require_uppercase=True):
         if len(password) < min_length:
@@ -76,6 +139,7 @@ class TaskManagerApp:
                     print("\nPassword did not match, try again\n")
             else:
                 print("\nPassword does not meet requirements, try again\n")
+        self.save_users_to_json("users.json")
 
     def login(self):
         username = input('Enter your username ("exit" to exit): ')
@@ -85,11 +149,12 @@ class TaskManagerApp:
             print("Closing the program")
             return "exit"
 
+        self.read_users_from_json("users.json")
+
         # if username found it's stored in possible_user which is used to check the password
-        possible_user = None
-        for user in self._users_list:
-            if username == user.name:
-                possible_user = user
+        possible_user = next(
+            (user for user in self._users_list if user.name == username), None
+        )
 
         if possible_user is None:
             print("User not found\n")
@@ -151,6 +216,7 @@ class TaskManagerApp:
         task.assigned_to = self._user
         self._user.add_task(task)
         self._tasks.append(task)
+        self.save_tasks_to_json("tasks.json")
 
     # for admin to add tasks
     def add_task(self):
@@ -193,6 +259,7 @@ class TaskManagerApp:
         else:
             print("\nInvalid input, task not assigned")
             self._tasks.append(task)
+        self.save_tasks_to_json("tasks.json")
 
     # for admin to edit task status
     def edit_task_status(self):
@@ -252,6 +319,7 @@ class TaskManagerApp:
                     return  # Return to the main menu
                 elif retry != "1":
                     print("Invalid option. Please try again.")
+        self.save_tasks_to_json("tasks.json")
 
     def run(self):
         while True:
@@ -367,9 +435,8 @@ class TaskManagerApp:
 # testing
 
 
-user = User("asd", "asd")
-admin = Admin("qwe", "qwe")
-users = [user, admin]
-app = TaskManagerApp(users)
-
+# user = User("asd", "asd")
+# admin = Admin("qwe", "qwe")
+# users = [user, admin]
+app = TaskManagerApp()
 app.run()

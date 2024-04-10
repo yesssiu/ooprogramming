@@ -13,9 +13,13 @@ class User:
     # same variable is used in Admin class
     user_variable_id = 1
 
-    def __init__(self, name: str, password: str):
-        self.__user_id = User.user_variable_id
+    @classmethod
+    def new_id(cls):
         User.user_variable_id += 1
+        return User.user_variable_id
+
+    def __init__(self, name: str, password: str):
+        self.__user_id = User.new_id()
         self.__name = name
         self.__is_manager = False
         self.__password = password
