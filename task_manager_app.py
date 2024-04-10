@@ -5,7 +5,6 @@
 from task import Task
 from users import User, Admin
 
-
 """Class definition for the application"""
 
 
