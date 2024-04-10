@@ -4,6 +4,7 @@
 
 from task import Task
 from users import User, Admin
+from datetime import datetime
 
 
 """Class definition for the application"""
@@ -113,12 +114,22 @@ class TaskManagerApp:
         for user in self._users_list:
             print(user)
 
+    def validate_deadline(self, deadline):
+        try:
+            datetime.strptime(deadline, "%d.%m.%Y")
+            return True
+        except ValueError:
+            print("Invalid deadline format. Please use dd.mm.yyyy format.")
+            return False
+
     # for user to add a task for themselves
     def add_task_user(self):
         task_name = input("\nName of task: ")
         category = input("Task category: ")
         description = input("Short description: ")
-        deadline = input("Task deadline: ")
+        deadline = input("Task deadline (dd.mm.yyyy): ")
+        while not self.validate_deadline(deadline):
+            deadline = input("Task deadline (dd.mm.yyyy): ")
         task = Task(task_name, category, description, deadline)
         task.assigned_to = self._user
         self._user.add_task(task)
@@ -129,7 +140,9 @@ class TaskManagerApp:
         task_name = input("\nName of task: ")
         category = input("Task category: ")
         description = input("Short description: ")
-        deadline = input("Task deadline: ")
+        deadline = input("Task deadline (dd.mm.yyyy): ")
+        while not self.validate_deadline(deadline):
+            deadline = input("Task deadline (dd.mm.yyyy): ")
         task = Task(task_name, category, description, deadline)
         choice = input("Assign task to user (y/n): ")
 
@@ -257,10 +270,10 @@ class TaskManagerApp:
 
             # checks if there is user or an admin and shows according options
             # if self._logged_in:
-                # if self._user.is_manager == False:
-                    # self.user_menu()
-                # elif self._user.is_manager == True:
-                    # self.admin_menu()
+            # if self._user.is_manager == False:
+            # self.user_menu()
+            # elif self._user.is_manager == True:
+            # self.admin_menu()
 
             # program for users
             while self._logged_in == True and self._user.is_manager == False:
