@@ -33,7 +33,7 @@ class TaskManagerApp:
                             name=user_data["name"], password=user_data["password"]
                         )
                         self._users_list.append(admin_user)
-                        print("Admin user loaded successfully.")
+                        # print("Admin user loaded successfully.")
                         return
             print("Admin user not found.")
         except FileNotFoundError:
@@ -106,8 +106,7 @@ class TaskManagerApp:
         try:
             with open(filename, "r") as file:
                 tasks_data = json.load(file)
-                self.tasks_list = [Task(**task_data)
-                                   for task_data in tasks_data]
+                self.tasks_list = [Task(**task_data) for task_data in tasks_data]
             print("Task data loaded successfully.")
         except FileNotFoundError:
             print("Task data file not found, creating a new empty file.")
@@ -186,7 +185,7 @@ class TaskManagerApp:
         if password == possible_user.password:
             self._logged_in = True
             self._user = possible_user
-            print("Logged in\n")
+            print(f"Logged in as: {self._user.name}\n")
 
         else:
             print("Wrong password\n")
