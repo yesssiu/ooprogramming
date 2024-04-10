@@ -65,6 +65,7 @@ class TaskManagerApp:
         print("3 All tasks")
         print("4 New task")
         print("5 Edit task status")
+        print("6 Assign task")
         print()
 
     def read_users_from_json(self, filename):
@@ -233,14 +234,14 @@ class TaskManagerApp:
         if choice == "y":
             print("\nList of all users:")
             self.view_users()
-
+#
             try:
                 id = int(input("\nSelect a user by their ID: "))
             except ValueError:
                 print("Invalid ID, task not assigned")
                 self._tasks.append(task)
                 return
-
+#
             user_found = False
             for user in self._users_list:
                 if user.user_id == id:
@@ -260,6 +261,57 @@ class TaskManagerApp:
             print("\nInvalid input, task not assigned")
             self._tasks.append(task)
         self.save_tasks_to_json("tasks.json")
+
+    def assign_task(self):
+
+        while True:
+
+            if self._tasks == []:
+                print("No tasks to assign")
+                return
+
+            else:
+                print("\nAll tasks:")
+                self.view_all_tasks()
+
+            try:
+                task_id = int(input("\nSelect a task by its ID: "))
+            except ValueError:
+                print("Invalid ID, task not assigned")
+                return
+
+            task_found = False
+            task_to_assign = None
+            for task in self._tasks:
+                if task.task_id == task_id:
+                    task_to_assign = task
+                    task_found = True
+            if not task_found:
+                print("Task not found")
+                return
+
+            print("\nList of all users:")
+            self.view_users()
+
+            try:
+                user_id = int(input("\nSelect a user by their ID: "))
+            except ValueError:
+                print("Invalid ID, task not assigned")
+                return
+
+            user_found = False
+            user_to_assign = None
+            for user in self._users_list:
+                if user.user_id == user_id:
+                    user_to_assign = user
+                    task_to_assign.assigned_to = user_to_assign
+                    user.add_task(task_to_assign)
+                    print(f"\nTask assigned to {user_to_assign.name}")
+                    user_found = True
+                    return
+            if not user_found:
+                print("\nUser not found, task not assigned")
+                return
 
     # for admin to edit task status
     def edit_task_status(self):
@@ -282,7 +334,7 @@ class TaskManagerApp:
                 else:
                     print("\nNo task found with the given ID.")
                     retry = input(
-                        "Do you want to try again? (1: Yes, 2: Back to main menu): "
+                        "Do you want to try again? \n1 Yes \n2 Back to main menu\n"
                     )
                     if retry == "2":
                         return  # return to main menu
@@ -292,7 +344,7 @@ class TaskManagerApp:
             except ValueError:
                 print("\nInvalid ID, please enter a valid task ID.")
                 retry = input(
-                    "\nDo you want to try again? (1: Yes, 2: Back to main menu): "
+                    "\nDo you want to try again? \n1 Yes \n2 Back to main menu\n"
                 )
                 if retry == "2":
                     return  # return to the main menu
@@ -302,7 +354,7 @@ class TaskManagerApp:
 
         while True:  # loop for checking the validity of the input task status
             new_status = input(
-                "\nEnter the new status (Assigned/In progress/Done/Approved): "
+                "\nEnter the new status from the following: \nAssigned \nIn progress \nDone \nApproved\n"
             ).lower()
             if new_status in ["assigned", "in progress", "done", "approved"]:
                 task_to_edit.status = new_status
@@ -313,7 +365,7 @@ class TaskManagerApp:
                     "\nInvalid status. Please choose from 'assigned', 'in progress', 'done', or 'approved'."
                 )
                 retry = input(
-                    "Do you want to try again? (1: Yes, 2: Back to main menu): "
+                    "Do you want to try again? \n1 Yes \n2 Back to main menu\n"
                 )
                 if retry == "2":
                     return  # Return to the main menu
@@ -330,7 +382,6 @@ class TaskManagerApp:
             self.start_menu()
 
             while starting:
-                # self.start_menu()
                 starting_command = input("Command: ")
 
                 if starting_command == "0":
@@ -352,13 +403,6 @@ class TaskManagerApp:
                 else:
                     print("Invalid input\n")
                     self.start_menu()
-
-            # checks if there is user or an admin and shows according options
-            # if self._logged_in:
-            # if self._user.is_manager == False:
-            # self.user_menu()
-            # elif self._user.is_manager == True:
-            # self.admin_menu()
 
             # program for users
             while self._logged_in == True and self._user.is_manager == False:
@@ -422,6 +466,10 @@ class TaskManagerApp:
 
                 elif command == "5":
                     self.edit_task_status()
+                    print()
+
+                elif command == "6":
+                    self.assign_task()
                     print()
 
                 else:
