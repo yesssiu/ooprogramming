@@ -5,7 +5,6 @@ def exiting():
     root.destroy()
 login_frame = tk.Frame(root)
 login_frame.pack()
-
 def login():
     # Clear any existing entry widgets
     for widget in login_frame.winfo_children():
@@ -30,8 +29,8 @@ def login():
             btn_view_tasks.pack(side="left",anchor="n")
             btn_view_all_tasks = tk.Button(logged_in, text="All tasks")
             btn_view_all_tasks.pack(side="left",anchor="n")
-            btn_add_task = tk.Button(logged_in,text="Add Task")
-            btn_add_task.pack(side="left",anchor="n")
+            #btn_add_task = tk.Button(logged_in,text="Add Task", command=add_task)
+            #btn_add_task.pack(side="left",anchor="n")
             btn_view_users = tk.Button(logged_in,text="View users")
             btn_view_users.pack(side="left",anchor="n")
             btn_exit = tk.Button(logged_in,text="Exit", command=exit)
@@ -39,7 +38,14 @@ def login():
             btn_log_out = tk.Button(logged_in,text="Log Out", command=logged_in.destroy)
             btn_log_out.pack(side="right",anchor="n")
 
-    # Login button with command to retrieve entry values
+            #For adding tasks
+            add_task_name = tk.Entry(logged_in)
+            add_task_name.pack()
+            add_task_category = tk.Entry(logged_in)
+            add_task_category.pack()
+            add_task_desc = tk.Entry(logged_in)
+            add_task_desc.pack()
+    #Login button with command to retrieve entry values
     btn_login2 = tk.Button(login_frame, text="Log in", command=check_info)
     btn_login2.pack()
 
