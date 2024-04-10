@@ -49,8 +49,11 @@ class User:
         self.__tasks.append(new_task)
 
     def view_tasks(self):
-        for task in self.__tasks:
-            print(task)
+        if self.tasks == []:
+            print("No tasks")
+        else:
+            for task in self.__tasks:
+                print(task)
 
     def __str__(self):
         return f"{self.__name} (ID {self.__user_id})"

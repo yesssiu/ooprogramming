@@ -25,7 +25,7 @@ class TaskManagerApp:
 
     # menu for regular users
     def user_menu(self):
-        print("\nCommands:")
+        print("Commands:")
         print("0 Exit")
         print("1 Log out")
         print("2 Own tasks")
@@ -35,7 +35,7 @@ class TaskManagerApp:
 
     # menu for admin users
     def admin_menu(self):
-        print("\nCommands:")
+        print("Commands:")
         print("0 Exit")
         print("1 Log out")
         print("2 Own tasks")
@@ -96,10 +96,7 @@ class TaskManagerApp:
     # for user to see their own tasks
     def view_tasks(self):
         print()
-        if self._user.view_tasks() == []:
-            print("No tasks found")
-        else:
-            self._user.view_tasks()
+        self._user.view_tasks()
 
     # to see all tasks
     def view_all_tasks(self):
@@ -119,9 +116,10 @@ class TaskManagerApp:
     # for user to add a task for themselves
     def add_task_user(self):
         task_name = input("\nName of task: ")
+        category = input("Task category: ")
         description = input("Short description: ")
         deadline = input("Task deadline: ")
-        task = Task(task_name, description, deadline)
+        task = Task(task_name, category, description, deadline)
         task.assigned_to = self._user
         self._user.add_task(task)
         self._tasks.append(task)
@@ -129,7 +127,7 @@ class TaskManagerApp:
     # for admin to add tasks
     def add_task(self):
         task_name = input("\nName of task: ")
-        category = input("\nTask category: ")
+        category = input("Task category: ")
         description = input("Short description: ")
         deadline = input("Task deadline: ")
         task = Task(task_name, category, description, deadline)
