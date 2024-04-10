@@ -50,10 +50,10 @@ class TaskManagerApp:
         print("Commands:")
         print("0 Exit")
         print("1 Log out")
-        print("2 Own tasks")
+        print("2 View all users")
         print("3 All tasks")
-        print("4 New task")
-        print("5 View all users")
+        print("4 Own tasks")
+        print("5 New task")
         print()
 
     # menu for admin users
@@ -61,12 +61,12 @@ class TaskManagerApp:
         print("Commands:")
         print("0 Exit")
         print("1 Log out")
-        print("2 Own tasks")
+        print("2 View all users")
         print("3 All tasks")
-        print("4 New task")
-        print("5 Edit task status")
+        print("4 Own tasks")
+        print("5 New task")
         print("6 Assign task")
-        print("7 View all users")
+        print("7 Edit task status")
         print()
 
     def read_users_from_json(self, filename):
@@ -438,7 +438,7 @@ class TaskManagerApp:
                     self.log_out()
 
                 elif command == "2":
-                    self.view_tasks()
+                    self.view_users()
                     print()
 
                 elif command == "3":
@@ -446,11 +446,11 @@ class TaskManagerApp:
                     print()
 
                 elif command == "4":
-                    self.add_task_user()
+                    self.view_tasks()
                     print()
 
                 elif command == "5":
-                    self.view_users()
+                    self.add_task_user()
                     print()
 
                 else:
@@ -472,7 +472,7 @@ class TaskManagerApp:
                     self.log_out()
 
                 elif command == "2":
-                    self.view_tasks()
+                    self.view_users()
                     print()
 
                 elif command == "3":
@@ -480,11 +480,11 @@ class TaskManagerApp:
                     print()
 
                 elif command == "4":
-                    self.add_task()
+                    self.view_tasks()
                     print()
 
                 elif command == "5":
-                    self.edit_task_status()
+                    self.add_task()
                     print()
 
                 elif command == "6":
@@ -492,7 +492,7 @@ class TaskManagerApp:
                     print()
 
                 elif command == "7":
-                    self.view_users()
+                    self.edit_task_status()
                     print()
 
                 else:
