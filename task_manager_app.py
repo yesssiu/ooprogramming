@@ -47,20 +47,36 @@ class TaskManagerApp:
         print("6 Assign task")
         print()
 
+    def validate_registration_pw(self, password, min_length=3, require_uppercase=True):
+        if len(password) < min_length:
+            print(
+                f"Password must be at least {min_length} characters long, please try again."
+            )
+            return False
+
+        if require_uppercase and not any(char.isupper() for char in password):
+            print("Password must contain at least one uppercase letter.")
+            return False
+
+        return True
+
     def register(self):
         username = input("Enter your username: ")
         password_validation = False
 
         while not password_validation:
             password = input("Enter your password: ")
-            password_2 = input("Re-enter your password: ")
-            if password == password_2:
-                new_user = User(username, password)
-                self._users_list.append(new_user)
-                print("\nUser created succesfully")
-                password_validation = True
+            if self.validate_registration_pw(password):
+                password_2 = input("Re-enter your password: ")
+                if password == password_2:
+                    new_user = User(username, password)
+                    self._users_list.append(new_user)
+                    print("\nUser created succesfully")
+                    password_validation = True
+                else:
+                    print("\nPassword did not match, try again\n")
             else:
-                print("\nPassword did not match, try again\n")
+                print("\nPassword does not meet requirements, try again\n")
 
     def login(self):
         username = input('Enter your username ("exit" to exit): ')
