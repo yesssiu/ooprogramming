@@ -32,6 +32,7 @@ class TaskManagerApp:
         print("2 Own tasks")
         print("3 All tasks")
         print("4 New task")
+        print("5 View all users")
         print()
 
     # menu for admin users
@@ -299,6 +300,10 @@ class TaskManagerApp:
 
                 elif command == "4":
                     self.add_task_user()
+                    print()
+
+                elif command == "5":
+                    self.view_users()
                     print()
 
                 else:
