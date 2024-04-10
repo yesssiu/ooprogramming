@@ -11,11 +11,15 @@ class User:
     # class variable, gives user_id automatically and is +1
     # for each user that is created
     # same variable is used in Admin class
-    user_variable_id = 1
+    user_variable_id = 0
+
+    @classmethod
+    def new_id(cls):
+        User.user_variable_id += 1
+        return User.user_variable_id
 
     def __init__(self, name: str, password: str):
-        self.__user_id = User.user_variable_id
-        User.user_variable_id += 1
+        self.__user_id = User.new_id()
         self.__name = name
         self.__is_manager = False
         self.__password = password
@@ -49,11 +53,23 @@ class User:
         self.__tasks.append(new_task)
 
     def view_tasks(self):
-        for task in self.__tasks:
-            print(task)
+        if self.tasks == []:
+            print("No tasks")
+        else:
+            for task in self.__tasks:
+                print(task)
 
     def __str__(self):
         return f"{self.__name} (ID {self.__user_id})"
+
+    def to_dict(self):
+        return {
+            "user_id": self.user_id,
+            "name": self.name,
+            "password": self.password,
+            "is_manager": self.is_manager,
+            "tasks": [task.to_dict() for task in self.tasks],
+        }
 
 
 """Class definition for a admin"""
