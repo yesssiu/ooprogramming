@@ -267,7 +267,7 @@ class TaskManagerApp:
                 else:
                     print("\nNo task found with the given ID.")
                     retry = input(
-                        "Do you want to try again? (1: Yes, 2: Back to main menu): "
+                        "Do you want to try again? \n1 Yes \n2 Back to main menu\n"
                     )
                     if retry == "2":
                         return  # return to main menu
@@ -277,7 +277,7 @@ class TaskManagerApp:
             except ValueError:
                 print("\nInvalid ID, please enter a valid task ID.")
                 retry = input(
-                    "\nDo you want to try again? (1: Yes, 2: Back to main menu): "
+                    "\nDo you want to try again? \n1 Yes \n2 Back to main menu\n"
                 )
                 if retry == "2":
                     return  # return to the main menu
@@ -287,7 +287,7 @@ class TaskManagerApp:
 
         while True:  # loop for checking the validity of the input task status
             new_status = input(
-                "\nEnter the new status (Assigned/In progress/Done/Approved): "
+                "\nEnter the new status from the following: \nAssigned \nIn progress \nDone \nApproved\n"
             ).lower()
             if new_status in ["assigned", "in progress", "done", "approved"]:
                 task_to_edit.status = new_status
@@ -298,7 +298,7 @@ class TaskManagerApp:
                     "\nInvalid status. Please choose from 'assigned', 'in progress', 'done', or 'approved'."
                 )
                 retry = input(
-                    "Do you want to try again? (1: Yes, 2: Back to main menu): "
+                    "Do you want to try again? \n1 Yes \n2 Back to main menu\n"
                 )
                 if retry == "2":
                     return  # Return to the main menu
