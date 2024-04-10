@@ -66,6 +66,7 @@ class TaskManagerApp:
         print("4 New task")
         print("5 Edit task status")
         print("6 Assign task")
+        print("7 View all users")
         print()
 
     def read_users_from_json(self, filename):
@@ -105,7 +106,8 @@ class TaskManagerApp:
         try:
             with open(filename, "r") as file:
                 tasks_data = json.load(file)
-                self.tasks_list = [Task(**task_data) for task_data in tasks_data]
+                self.tasks_list = [Task(**task_data)
+                                   for task_data in tasks_data]
             print("Task data loaded successfully.")
         except FileNotFoundError:
             print("Task data file not found, creating a new empty file.")
@@ -487,6 +489,10 @@ class TaskManagerApp:
 
                 elif command == "6":
                     self.assign_task()
+                    print()
+
+                elif command == "7":
+                    self.view_users()
                     print()
 
                 else:
