@@ -58,3 +58,14 @@ class Task:
 
     def __str__(self):
         return f"ID: {self.__task_id}, name: {self.task_name}, assigned to: {self.__assigned_to}, category: {self.__category}, description: {self.description}, status: {self.status}, deadline: {self.deadline}"
+
+    def to_dict(self):
+        return {
+            "task_id": self.__task_id,
+            "task_name": self.task_name,
+            "assigned_to": self.__assigned_to,
+            "category": self.__category,
+            "description": self.description,
+            "status": self.__status,
+            "deadline": self.__deadline,
+        }

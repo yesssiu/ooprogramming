@@ -102,10 +102,10 @@ class TaskManagerApp:
             self.save_tasks_to_json(filename)
 
     def save_tasks_to_json(self, filename):
-        tasks_data = [task.__dict__ for task in self._tasks]
+        tasks_data = [task.to_dict() for task in self._tasks]
         try:
             with open(filename, "w") as file:
-                json.dump(tasks_data, file)
+                json.dump(tasks_data, file, default=str, indent=4)
             print("Tasks saved successfully.")
         except IOError as e:
             print(f"Error saving tasks to {filename}: {e}")
@@ -150,7 +150,12 @@ class TaskManagerApp:
             print("Closing the program")
             return "exit"
 
-        self.read_users_from_json("users.json")
+        try:
+            with open("users.json", "r") as file:
+                users_data = json.load(file)
+        except FileNotFoundError:
+            print("User data file not found.")
+            return
 
         # if username found it's stored in possible_user which is used to check the password
         possible_user = next(
@@ -234,14 +239,14 @@ class TaskManagerApp:
         if choice == "y":
             print("\nList of all users:")
             self.view_users()
-#
+            #
             try:
                 id = int(input("\nSelect a user by their ID: "))
             except ValueError:
                 print("Invalid ID, task not assigned")
                 self._tasks.append(task)
                 return
-#
+            #
             user_found = False
             for user in self._users_list:
                 if user.user_id == id:

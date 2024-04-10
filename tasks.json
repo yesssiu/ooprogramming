@@ -1,0 +1,20 @@
+[
+    {
+        "task_id": 1,
+        "task_name": "asd",
+        "assigned_to": null,
+        "category": "asd",
+        "description": "asd",
+        "status": "in progress",
+        "deadline": "1.1.2025"
+    },
+    {
+        "task_id": 2,
+        "task_name": "asd",
+        "assigned_to": "asd (ID 3)",
+        "category": "asd",
+        "description": "asd",
+        "status": "in progress",
+        "deadline": "1.1.2026"
+    }
+]

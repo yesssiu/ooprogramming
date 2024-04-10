@@ -62,6 +62,15 @@ class User:
     def __str__(self):
         return f"{self.__name} (ID {self.__user_id})"
 
+    def to_dict(self):
+        return {
+            "user_id": self.user_id,
+            "name": self.name,
+            "password": self.password,
+            "is_manager": self.is_manager,
+            "tasks": [task.to_dict() for task in self.tasks],
+        }
+
 
 """Class definition for a admin"""
 
