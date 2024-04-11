@@ -24,6 +24,10 @@ class Task:
     def task_id(self):
         return self.__task_id
 
+    @task_id.setter
+    def user_id(self, value):
+        self.__task_id = value
+
     @property
     def assigned_to(self):
         return self.__assigned_to

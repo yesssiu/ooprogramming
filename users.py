@@ -1,22 +1,13 @@
-# File:         users.py
-# Author:       Lauri Kodisoja
-# Description:  class definition for different users
-
 from task import Task
-
-"""Class definition for a user"""
 
 
 class User:
-    # class variable, gives user_id automatically and is +1
-    # for each user that is created
-    # same variable is used in Admin class
     user_variable_id = 0
 
     @classmethod
     def new_id(cls):
-        User.user_variable_id += 1
-        return User.user_variable_id
+        cls.user_variable_id += 1
+        return cls.user_variable_id
 
     def __init__(self, name: str, password: str):
         self.__user_id = User.new_id()
@@ -36,6 +27,10 @@ class User:
     @property
     def user_id(self):
         return self.__user_id
+
+    @user_id.setter
+    def user_id(self, value):
+        self.__user_id = value
 
     @property
     def is_manager(self):
@@ -70,9 +65,6 @@ class User:
             "is_manager": self.is_manager,
             "tasks": [task.to_dict() for task in self.tasks],
         }
-
-
-"""Class definition for a admin"""
 
 
 class Admin(User):

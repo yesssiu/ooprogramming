@@ -39,6 +39,59 @@ class TaskManagerApp:
         except FileNotFoundError:
             print("User data file not found.")
 
+    def read_users_from_json(self, filename):
+        try:
+            with open(filename, "r") as file:
+                users_data = json.load(file)
+                self._users_list = []
+                for user_data in users_data:
+                    if user_data.get("is_manager", False):
+                        user = Admin(user_data["name"], user_data["password"])
+                    else:
+                        user = User(user_data["name"], user_data["password"])
+                    user.user_id = user_data["user_id"]  # Set the user_id attribute
+                    self._users_list.append(user)
+            print("User data loaded successfully.")
+        except FileNotFoundError:
+            print("User data file not found")
+
+    def save_users_to_json(self, filename):
+        users_data = []
+        for user in self._users_list:
+            user_data = {
+                "user_id": user.user_id,
+                "name": user.name,
+                "password": user.password,
+                "is_manager": isinstance(user, Admin),
+            }
+            users_data.append(user_data)
+        try:
+            with open(filename, "w") as file:
+                json.dump(users_data, file)
+            print("Users saved successfully.")
+        except IOError as e:
+            print(f"Error saving user data to {filename}: {e}")
+
+    def read_tasks_from_json(self, filename):
+        try:
+            with open(filename, "r") as file:
+                tasks_data = json.load(file)
+                self._tasks = [Task(**task_data) for task_data in tasks_data]
+            print("Task data loaded successfully.")
+        except FileNotFoundError:
+            print("Task data file not found, creating a new empty file.")
+            self.tasks_list = []
+            self.save_tasks_to_json(filename)
+
+    def save_tasks_to_json(self, filename):
+        tasks_data = [task.to_dict() for task in self._tasks]
+        try:
+            with open(filename, "w") as file:
+                json.dump(tasks_data, file, default=str, indent=4)
+            print("Tasks saved successfully.")
+        except IOError as e:
+            print(f"Error saving tasks to {filename}: {e}")
+
     def start_menu(self):
         print("\nCommands:")
         print("0 Exit")
@@ -68,60 +121,6 @@ class TaskManagerApp:
         print("6 Assign task")
         print("7 Edit task status")
         print()
-
-    def read_users_from_json(self, filename):
-        try:
-            with open(filename, "r") as file:
-                users_data = json.load(file)
-                self.users_list = []
-                for user_data in users_data:
-                    if user_data.get("is_manager", False):
-                        user = Admin(user_data["name"], user_data["password"])
-                    else:
-                        user = User(user_data["name"], user_data["password"])
-                    user.user_id = user_data["user_id"]
-                    self._users_list.append(user)
-            print("User data loaded successfully.")
-        except FileNotFoundError:
-            print("User data file not found")
-
-    def save_users_to_json(self, filename):
-        users_data = []
-        for user in self._users_list:
-            user_data = {
-                "user_id": user.user_id,
-                "name": user.name,
-                "password": user.password,
-                "is_manager": isinstance(user, Admin),
-            }
-            users_data.append(user_data)
-        try:
-            with open(filename, "w") as file:
-                json.dump(users_data, file)
-            print("Users saved successfully.")
-        except IOError as e:
-            print(f"Error saving user data to {filename}: {e}")
-
-    def read_tasks_from_json(self, filename):
-        try:
-            with open(filename, "r") as file:
-                tasks_data = json.load(file)
-                self.tasks_list = [Task(**task_data)
-                                   for task_data in tasks_data]
-            print("Task data loaded successfully.")
-        except FileNotFoundError:
-            print("Task data file not found, creating a new empty file.")
-            self.tasks_list = []
-            self.save_tasks_to_json(filename)
-
-    def save_tasks_to_json(self, filename):
-        tasks_data = [task.to_dict() for task in self._tasks]
-        try:
-            with open(filename, "w") as file:
-                json.dump(tasks_data, file, default=str, indent=4)
-            print("Tasks saved successfully.")
-        except IOError as e:
-            print(f"Error saving tasks to {filename}: {e}")
 
     def validate_registration_pw(self, password, min_length=3, require_uppercase=True):
         if len(password) < min_length:
@@ -279,7 +278,6 @@ class TaskManagerApp:
         else:
             print("\nInvalid input, task not assigned")
             self._tasks.append(task)
-        self.save_tasks_to_json("tasks.json")
 
     def assign_task(self):
 
@@ -393,10 +391,12 @@ class TaskManagerApp:
         self.save_tasks_to_json("tasks.json")
 
     def run(self):
+
         while True:
             # exit is used to close the program
             exit = False
             starting = True
+            self.read_users_from_json("users.json")
             print("Task Manager App")
             self.start_menu()
 
