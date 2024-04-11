@@ -5,8 +5,10 @@ root = tk.Tk()
 root.title("Task Management System")
 root.geometry("500x300")
 
-label = tk.Label(root, text="Welcome to TM System!\n What would you like to do?")
-label.pack(padx=20, pady=20)
+label = tk.Label(root, text="Welcome to TM System!", font=('Arial', 20))
+label.pack(padx=20, pady=10)
+label = tk.Label(root, text="What would you like to do?")
+label.pack(padx=20, pady=5)
 
 login_frame = tk.Frame(root)
 login_frame.pack()
@@ -35,27 +37,15 @@ def login():
         password = entry_password.get()
         if username == "asd" and password == "asd":
             logged_in = tk.Toplevel()
-            logged_in.geometry("550x550")
+            logged_in.geometry("550x600")
             logged_in.title("Logged in to TM System")
             
-            label_welcome = tk.Label(logged_in, text="You are now logged in to TM System")
+            label_welcome = tk.Label(logged_in, text="You are now logged in to TM System", font=('Arial', 18))
             label_welcome.pack(padx=10, pady=10)
-            
-            #Top buttons in a grid
-            buttongridTop = tk.Frame(logged_in)
-            buttongridTop.pack(padx=10, pady=10)
-            
-            btn_view_tasks = tk.Button(buttongridTop, text="View your tasks")
-            btn_view_tasks.grid(row=0, column=0)
-            btn_view_all_tasks = tk.Button(buttongridTop, text="Vew all tasks")
-            btn_view_all_tasks.grid(row=0, column=1)
-            btn_view_users = tk.Button(buttongridTop, text="View users")
-            btn_view_users.grid(row=0, column=2)
             
             #Fields for adding tasks
             label_new_task = tk.Label(logged_in, text="Fill in the information to add a new task:")
             label_new_task.pack(padx=10, pady=10)
-            
             
             task_frame = tk.Frame(logged_in)
             task_frame.pack(padx=10, pady=5)
@@ -74,6 +64,20 @@ def login():
             desc_label.grid(row=2, column=0, padx=10, pady=5)
             desc_entry = tk.Entry(task_frame)
             desc_entry.grid(row=2, column=1, padx=10, pady=5)
+            
+            btn_create_task = tk.Button(logged_in, text="Create")
+            btn_create_task.pack()
+            
+            #Top buttons in a grid
+            buttongridTop = tk.Frame(logged_in)
+            buttongridTop.pack(padx=10, pady=10)
+            
+            btn_view_tasks = tk.Button(buttongridTop, text="View your tasks")
+            btn_view_tasks.grid(row=0, column=0)
+            btn_view_all_tasks = tk.Button(buttongridTop, text="Vew all tasks")
+            btn_view_all_tasks.grid(row=0, column=1)
+            btn_view_users = tk.Button(buttongridTop, text="View users")
+            btn_view_users.grid(row=0, column=2)
             
             #Functionality for buttons
             #def viewMyTasks():
