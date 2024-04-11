@@ -4,6 +4,7 @@ root = tk.Tk()
 
 def exiting():
     root.destroy()
+
 login_frame = tk.Frame(root)
 login_frame.pack()
 
@@ -27,36 +28,54 @@ def login():
             logged_in.geometry("450x450")
             logged_in.title("Logged in to TM System")
             
-            label_welcome = tk.Label(logged_in,text="You are now logged in to TM System")
-            label_welcome.pack()
+            label_welcome = tk.Label(logged_in, text="You are now logged in to TM System")
+            label_welcome.pack(padx=10, pady=10)
             
-            btn_view_tasks = tk.Button(logged_in,text="Own tasks")
-            btn_view_tasks.pack(side="left",anchor="n")
+            #Top buttons in a grid
+            buttongridTop = tk.Frame(logged_in)
+            buttongridTop.pack(padx=10, pady=10)
             
-            btn_view_all_tasks = tk.Button(logged_in, text="All tasks")
-            btn_view_all_tasks.pack(side="left",anchor="n")
+            btn_view_tasks = tk.Button(buttongridTop, text="View your tasks")
+            btn_view_tasks.grid(row=0, column=0)
+        
+            btn_view_all_tasks = tk.Button(buttongridTop, text="Vew all tasks")
+            btn_view_all_tasks.grid(row=0, column=1)
             
-            #btn_add_task = tk.Button(logged_in,text="Add Task", command=add_task)
-            #btn_add_task.pack(side="left",anchor="n")
+            btn_view_users = tk.Button(buttongridTop, text="View users")
+            btn_view_users.grid(row=0, column=2)
             
-            btn_view_users = tk.Button(logged_in,text="View users")
-            btn_view_users.pack(side="left",anchor="n")
+            #Fields for adding tasks
+            task_frame = tk.Frame(logged_in)
+            task_frame.pack(padx=10, pady=5)
             
-            btn_exit = tk.Button(logged_in,text="Exit", command=exit)
-            btn_exit.pack(side="bottom",anchor="n")
+            name_label = tk.Label(task_frame, text='Name')
+            name_label.grid(row=0, column=0, padx=10, pady=5)
             
-            btn_log_out = tk.Button(logged_in,text="Log Out", command=logged_in.destroy)
-            btn_log_out.pack(side="bottom",anchor="n")
+            name_entry = tk.Entry(task_frame)
+            name_entry.grid(row=0, column=1, padx=10, pady=5)
+            
+            category_label = tk.Label(task_frame, text='Category')
+            category_label.grid(row=1, column=0, padx=10, pady=5)
+            
+            category_entry = tk.Entry(task_frame)
+            category_entry.grid(row=1, column=1, padx=10, pady=5)
+            
+            desc_label = tk.Label(task_frame, text='Description')
+            desc_label.grid(row=2, column=0, padx=10, pady=5)
+            
+            add_task_desc = tk.Entry(task_frame)
+            add_task_desc.grid(row=2, column=1, padx=10, pady=5)
+            
+            #Bottom buttons in a grid
+            buttongridBottom = tk.Frame(logged_in)
+            buttongridBottom.pack(padx=10, pady=10)
+            
+            btn_exit = tk.Button(buttongridBottom, text="Exit", command=exit)
+            btn_exit.grid(row=0, column=1)
+            
+            btn_log_out = tk.Button(buttongridBottom, text="Log Out", command=logged_in.destroy)
+            btn_log_out.grid(row=0, column=2)
 
-            #For adding tasks
-            add_task_name = tk.Entry(logged_in)
-            add_task_name.pack(side="bottom",anchor="n")
-            
-            add_task_category = tk.Entry(logged_in)
-            add_task_category.pack(side="bottom",anchor="n")
-            
-            add_task_desc = tk.Entry(logged_in)
-            add_task_desc.pack(side="bottom",anchor="n")
             
     #Login button with command to retrieve entry values
     btn_login2 = tk.Button(login_frame, text="Log in", command=check_info)
