@@ -8,11 +8,15 @@
 class Task:
     # class variable, gives task_id automatically and is +1
     # for each task that is created
-    task_variable_id = 1
+    task_variable_id = 0
+
+    @classmethod
+    def new_id(cls):
+        cls.task_variable_id += 1
+        return cls.task_variable_id
 
     def __init__(self, task_name: str, category: str, description: str, deadline: str):
-        self.__task_id = Task.task_variable_id
-        Task.task_variable_id += 1
+        self.__task_id = Task.new_id()
         self.task_name = task_name
         self.__assigned_to = None
         self.__category = category

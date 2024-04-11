@@ -76,12 +76,25 @@ class TaskManagerApp:
         try:
             with open(filename, "r") as file:
                 tasks_data = json.load(file)
-                self._tasks = [Task(**task_data) for task_data in tasks_data]
+                self._tasks = []
+                for task_data in tasks_data:
+                    task = Task(
+                        task_data["task_name"],
+                        task_data["category"],
+                        task_data["description"],
+                        task_data["deadline"],
+                    )
+                    task._Task__task_id = task_data[
+                        "task_id"
+                    ]  # set task_id after creating the Task
+                    self._tasks.append(task)
             print("Task data loaded successfully.")
         except FileNotFoundError:
             print("Task data file not found, creating a new empty file.")
             self.tasks_list = []
             self.save_tasks_to_json(filename)
+        except (TypeError, ValueError) as e:
+            print(f"Error loading task data from {filename}: {e}")
 
     def save_tasks_to_json(self, filename):
         tasks_data = [task.to_dict() for task in self._tasks]
@@ -397,6 +410,7 @@ class TaskManagerApp:
             exit = False
             starting = True
             self.read_users_from_json("users.json")
+            self.read_tasks_from_json("tasks.json")
             print("Task Manager App")
             self.start_menu()
 
