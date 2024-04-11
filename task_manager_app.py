@@ -7,7 +7,6 @@ from users import User, Admin
 from datetime import datetime
 import json
 
-
 """Class definition for the application"""
 
 
