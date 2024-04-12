@@ -509,4 +509,4 @@ class TaskManagerApp:
 # admin = Admin("qwe", "qwe")
 # users = [user, admin]
 app = TaskManagerApp()
-app.run()
+# app.run()
