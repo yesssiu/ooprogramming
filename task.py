@@ -21,7 +21,7 @@ class Task:
         self.__assigned_to = None
         self.__category = category
         self.description = description
-        self.__status = "in progress"
+        self.__status = "Created"
         self.__deadline = deadline
 
     @property

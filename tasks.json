@@ -1,20 +1,38 @@
 [
     {
         "task_id": 1,
-        "task_name": "kyrp\u00e4",
+        "task_name": "Test1",
         "assigned_to": null,
-        "category": "aaaaaaaaaa",
-        "description": "saatana",
-        "status": "in progress",
+        "category": "Testing",
+        "description": "A test task",
+        "status": "Created",
         "deadline": "1.1.2025"
     },
     {
         "task_id": 2,
-        "task_name": "asd",
+        "task_name": "Test2",
+        "assigned_to": null,
+        "category": "Testing",
+        "description": "Another test task",
+        "status": "Created",
+        "deadline": "1.1.2025"
+    },
+    {
+        "task_id": 3,
+        "task_name": "Test3",
+        "assigned_to": null,
+        "category": "Testing",
+        "description": "Test task",
+        "status": "Created",
+        "deadline": "1.1.2025"
+    },
+    {
+        "task_id": 4,
+        "task_name": "Test4",
         "assigned_to": "user1 (ID 2)",
-        "category": "asd",
-        "description": "asd",
-        "status": "in progress",
+        "category": "Testing",
+        "description": "Testing",
+        "status": "In Progress",
         "deadline": "1.1.2025"
     }
 ]

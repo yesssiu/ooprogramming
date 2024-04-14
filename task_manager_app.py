@@ -290,9 +290,9 @@ class TaskManagerApp:
         else:
             print("\nInvalid input, task not assigned")
             self._tasks.append(task)
+        self.save_tasks_to_json("tasks.json")
 
     def assign_task(self):
-
         while True:
 
             if self._tasks == []:
@@ -342,6 +342,8 @@ class TaskManagerApp:
                 print("\nUser not found, task not assigned")
                 return
 
+            self.save_tasks_to_json("tasks.json")
+
     # for admin to edit task status
     def edit_task_status(self):
         # self.view_all_tasks()
@@ -382,16 +384,20 @@ class TaskManagerApp:
                     continue
 
         while True:  # loop for checking the validity of the input task status
-            new_status = input(
-                "\nEnter the new status from the following: \nAssigned \nIn progress \nDone \nApproved\n"
-            ).lower()
-            if new_status in ["assigned", "in progress", "done", "approved"]:
+            new_status = (
+                input(
+                    "\nEnter the new status from the following: \nAssigned \nIn progress \nDone \nApproved\n"
+                )
+                .strip()
+                .title()
+            )  # Convert input to title case
+            if new_status in ["Assigned", "In Progress", "Done", "Approved"]:
                 task_to_edit.status = new_status
                 print("Task status updated successfully.")
                 break  # end loop if it's valid
             else:
                 print(
-                    "\nInvalid status. Please choose from 'assigned', 'in progress', 'done', or 'approved'."
+                    "\nInvalid status. Please choose from 'Assigned', 'In progress', 'Done', or 'Approved'."
                 )
                 retry = input(
                     "Do you want to try again? \n1 Yes \n2 Back to main menu\n"
