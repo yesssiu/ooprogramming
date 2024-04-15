@@ -29,10 +29,19 @@
     {
         "task_id": 4,
         "task_name": "Test4",
-        "assigned_to": "user1 (ID 2)",
+        "assigned_to": null,
         "category": "Testing",
         "description": "Testing",
-        "status": "In Progress",
+        "status": "Created",
+        "deadline": "1.1.2025"
+    },
+    {
+        "task_id": 9,
+        "task_name": "Normal user test task",
+        "assigned_to": "TestUser (ID 5)",
+        "category": "Testing",
+        "description": "Testing",
+        "status": "Created",
         "deadline": "1.1.2025"
     }
 ]

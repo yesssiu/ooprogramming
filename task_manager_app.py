@@ -152,7 +152,9 @@ class TaskManagerApp:
         password_validation = False
 
         while not password_validation:
-            password = input("Enter your password: ")
+            password = input(
+                "Enter your password (minimum 3 characters, at least one capital letter): "
+            )
             if self.validate_registration_pw(password):
                 password_2 = input("Re-enter your password: ")
                 if password == password_2:
