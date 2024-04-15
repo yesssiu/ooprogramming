@@ -2,7 +2,7 @@
     {
         "task_id": 1,
         "task_name": "Test1",
-        "assigned_to": null,
+        "assigned_to_id": 5,
         "category": "Testing",
         "description": "A test task",
         "status": "Created",
@@ -11,7 +11,7 @@
     {
         "task_id": 2,
         "task_name": "Test2",
-        "assigned_to": null,
+        "assigned_to_id": 5,
         "category": "Testing",
         "description": "Another test task",
         "status": "Created",
@@ -20,7 +20,7 @@
     {
         "task_id": 3,
         "task_name": "Test3",
-        "assigned_to": null,
+        "assigned_to_id": 6,
         "category": "Testing",
         "description": "Test task",
         "status": "Created",
@@ -29,7 +29,7 @@
     {
         "task_id": 4,
         "task_name": "Test4",
-        "assigned_to": null,
+        "assigned_to_id": 5,
         "category": "Testing",
         "description": "Testing",
         "status": "Created",
@@ -38,9 +38,18 @@
     {
         "task_id": 9,
         "task_name": "Normal user test task",
-        "assigned_to": "TestUser (ID 5)",
+        "assigned_to_id": null,
         "category": "Testing",
         "description": "Testing",
+        "status": "Created",
+        "deadline": "1.1.2025"
+    },
+    {
+        "task_id": 11,
+        "task_name": "Normal user test task 2",
+        "assigned_to_id": null,
+        "category": "Testing",
+        "description": "Test",
         "status": "Created",
         "deadline": "1.1.2025"
     }

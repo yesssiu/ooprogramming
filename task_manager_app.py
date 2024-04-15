@@ -77,6 +77,17 @@ class TaskManagerApp:
                 tasks_data = json.load(file)
                 self._tasks = []
                 for task_data in tasks_data:
+                    assigned_to_id = task_data.get("assigned_to_id")
+                    assigned_to_user = None
+                    if assigned_to_id is not None:
+                        assigned_to_user = next(
+                            (
+                                user
+                                for user in self._users_list
+                                if user.user_id == assigned_to_id
+                            ),
+                            None,
+                        )
                     task = Task(
                         task_data["task_name"],
                         task_data["category"],
@@ -86,11 +97,13 @@ class TaskManagerApp:
                     task._Task__task_id = task_data[
                         "task_id"
                     ]  # set task_id after creating the Task
+                    task._Task__status = task_data["status"]
+                    task._Task__assigned_to = assigned_to_user
                     self._tasks.append(task)
             print("Task data loaded successfully.")
         except FileNotFoundError:
             print("Task data file not found, creating a new empty file.")
-            self.tasks_list = []
+            self._tasks = []
             self.save_tasks_to_json(filename)
         except (TypeError, ValueError) as e:
             print(f"Error loading task data from {filename}: {e}")
@@ -336,15 +349,17 @@ class TaskManagerApp:
                 if user.user_id == user_id:
                     user_to_assign = user
                     task_to_assign.assigned_to = user_to_assign
-                    user.add_task(task_to_assign)
+                    user_to_assign.add_task(task_to_assign)
                     print(f"\nTask assigned to {user_to_assign.name}")
                     user_found = True
-                    return
+                    break  # exiting loop after assigning the task
             if not user_found:
                 print("\nUser not found, task not assigned")
                 return
 
             self.save_tasks_to_json("tasks.json")
+            print("\nReturning to admin menu")
+            break  # going back to admin user menu
 
     # for admin to edit task status
     def edit_task_status(self):

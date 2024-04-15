@@ -65,13 +65,19 @@ class Task:
         self.__deadline = new_deadline
 
     def __str__(self):
-        return f"ID: {self.__task_id}, name: {self.task_name}, assigned to: {self.__assigned_to}, category: {self.__category}, description: {self.description}, status: {self.status}, deadline: {self.deadline}"
+        assigned_to_name = (
+            self.__assigned_to.name if self.__assigned_to else "Unassigned"
+        )
+        return f"ID: {self.__task_id}, name: {self.task_name}, assigned to: {assigned_to_name}, category: {self.__category}, description: {self.description}, status: {self.status}, deadline: {self.deadline}"
 
     def to_dict(self):
+        assigned_to_id = None
+        if self.__assigned_to:
+            assigned_to_id = self.__assigned_to.user_id
         return {
             "task_id": self.__task_id,
             "task_name": self.task_name,
-            "assigned_to": self.__assigned_to,
+            "assigned_to_id": assigned_to_id,
             "category": self.__category,
             "description": self.description,
             "status": self.__status,
