@@ -52,5 +52,23 @@
         "description": "Test",
         "status": "Created",
         "deadline": "1.1.2025"
+    },
+    {
+        "task_id": 7,
+        "task_name": "Testi123",
+        "assigned_to_id": 5,
+        "category": "Testing",
+        "description": "Testing task creation with a normal user",
+        "status": "Created",
+        "deadline": "1.1.2025"
+    },
+    {
+        "task_id": 8,
+        "task_name": "Testi234",
+        "assigned_to_id": 5,
+        "category": "Testing",
+        "description": "Testing task creation with a normal user",
+        "status": "Created",
+        "deadline": "1.1.2025"
     }
 ]

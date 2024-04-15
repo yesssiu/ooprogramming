@@ -46,7 +46,7 @@ class User:
 
     def add_task(self, new_task: Task):
         self.__tasks.append(new_task)
-        print(f"Tasks after adding: {self.__tasks}")
+        # print(f"Tasks after adding: {self.__tasks}")
 
     def view_tasks(self):
         if self.tasks:
