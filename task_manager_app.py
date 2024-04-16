@@ -48,7 +48,8 @@ class TaskManagerApp:
                         user = Admin(user_data["name"], user_data["password"])
                     else:
                         user = User(user_data["name"], user_data["password"])
-                    user.user_id = user_data["user_id"]  # Set the user_id attribute
+                    # Set the user_id attribute
+                    user.user_id = user_data["user_id"]
                     self._users_list.append(user)
             print("User data loaded successfully.")
         except FileNotFoundError:
@@ -537,13 +538,3 @@ class TaskManagerApp:
 
             if exit:
                 break
-
-
-# testing
-
-
-# user = User("asd", "asd")
-# admin = Admin("qwe", "qwe")
-# users = [user, admin]
-app = TaskManagerApp()
-app.run()
