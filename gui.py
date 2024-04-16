@@ -1,3 +1,7 @@
+# File:         gui.py
+# Author:       Jessica Laamanen and Saana Rautava
+# Description:  GUI for Task Management System
+
 import tkinter as tk
 from task_manager_app import TaskManagerApp
 
