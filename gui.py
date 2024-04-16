@@ -25,7 +25,8 @@ def check_info():
     password = entry_password.get()
     
     # Call the login method in the TaskManagerApp instance
-    user = task_manager.login(username, password)
+    user = (username, password)
+
     
     if user:
         # Successfully logged in, continue with GUI setup
@@ -88,7 +89,7 @@ def check_info():
             
         btn_view_tasks = tk.Button(buttongridTop, text="View your tasks", command=viewMyTasks)
         btn_view_tasks.grid(row=0, column=0)
-        btn_view_all_tasks = tk.Button(buttongridTop, text="Vew all tasks", command=viewAllTasks)
+        btn_view_all_tasks = tk.Button(buttongridTop, text="View all tasks", command=viewAllTasks)
         btn_view_all_tasks.grid(row=0, column=1)
         btn_view_users = tk.Button(buttongridTop, text="View users", command=viewUsers)
         btn_view_users.grid(row=0, column=2)
